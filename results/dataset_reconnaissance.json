@@ -1,0 +1,128 @@
+{
+  "scope": "Read-only reconnaissance of data/raw/Paderborn/K001.rar and documentation contained in that archive/workspace. No model training, splitting, preprocessing, or configuration changes were performed.",
+  "source_files": {
+    "archive": "data/raw/Paderborn/K001.rar",
+    "archive_format": "RAR v4 (Win32)",
+    "archive_modified": false,
+    "workspace_documentation": {
+      "readme_versions.txt": "2016-07-13: update of profile of bearing damage KI03 (correction of mistakes in description of damage geometry)",
+      "archive_documents": ["K001/K001.pdf", "K001/measuring_log_K001.pdf"]
+    },
+    "inspection_method": "bsdtar listing plus temporary extraction to /private/tmp; scipy.io.loadmat and pypdf used for read-only inspection."
+  },
+  "archive_structure": {
+    "top_level_directory": "K001/",
+    "mat_file_count": 80,
+    "pdf_file_count": 2,
+    "other_entries": ["K001"],
+    "mat_file_series": [
+      {"pattern": "K001/N15_M07_F10_K001_{1..20}.mat", "count": 20},
+      {"pattern": "K001/N09_M07_F10_K001_{1..20}.mat", "count": 20},
+      {"pattern": "K001/N15_M01_F10_K001_{1..20}.mat", "count": 20},
+      {"pattern": "K001/N15_M07_F04_K001_{1..20}.mat", "count": 20}
+    ],
+    "non_mat_files": ["K001/K001.pdf", "K001/measuring_log_K001.pdf"]
+  },
+  "file_naming_convention": {
+    "observed_template": "Nxx_Mxx_Fxx_<bearing_code>_<measurement_number>.mat",
+    "documentation_supported_facts": {
+      "bearing_code": "The PDFs call K001 the bearing code. K001 is the identifier represented by this archive.",
+      "measurement_number": "The terminal integer is 1 through 20 within each of the four observed N/M/F combinations.",
+      "load_variant_mappings": {
+        "K0": "N15_M07_F10_...",
+        "K1": "N09_M07_F10_...",
+        "K2": "N15_M01_F10_...",
+        "K3": "N15_M07_F04_..."
+      }
+    },
+    "corroborated_by_recorded_channels_not_explicitly_defined_as_a_filename_legend": {
+      "N15": "Representative file records mean speed about 1499.6 min^-1; N09 records about 899.7 min^-1.",
+      "F10": "Representative files record mean force about 1026-1042 N; F04 records about 403.6 N.",
+      "M07_vs_M01": "M07 representative files record mean torque about 1.20-1.26, while M01 records about 0.64. The local documentation does not define the M token, its units, or the exact intended setpoint mapping."
+    },
+    "unknown_without_more_official_documentation": [
+      "The exact expanded meanings/units of the N, M, and F tokens as filename fields.",
+      "Whether the leading K in a code such as K001 or KA01 has a separate semantic meaning beyond being part of the bearing code.",
+      "The condition/damage meaning, if any, encoded by letter variants such as KA01."
+    ]
+  },
+  "mat_structure": {
+    "top_level_variable": "Each inspected MAT file has one top-level 1x1 MATLAB struct named exactly as its filename stem, e.g. N15_M07_F10_K001_1.",
+    "top_level_fields": ["Info", "X", "Y", "Description"],
+    "Info": {"fields": ["RevisionMajor", "RevisionMinor", "MeasurementID"], "representative_values": {"RevisionMajor": 2, "RevisionMinor": 1, "MeasurementID": 1}},
+    "Description": {
+      "fields": ["General", "Recording", "Measurement"],
+      "representative_recording": {"Measurement.Length": 4, "StartTimestamp": -0.004969293716995771, "StopTimestamp": 3.9950307062830044, "StopCondition": "Time limit: 4.000000"}
+    },
+    "X": [
+      {"index": 0, "raster": "Mech_4kHz", "samples": 16001},
+      {"index": 1, "raster": "HostService", "samples": 256001},
+      {"index": 2, "raster": "Temp_1Hz", "samples": 5}
+    ],
+    "Y_channels": [
+      {"name": "force", "raster": "Mech_4kHz", "samples": 16001},
+      {"name": "phase_current_1", "raster": "HostService", "samples": 256001},
+      {"name": "phase_current_2", "raster": "HostService", "samples": 256001},
+      {"name": "speed", "raster": "Mech_4kHz", "samples": 16001},
+      {"name": "temp_2_bearing_module", "raster": "Temp_1Hz", "samples": 5},
+      {"name": "torque", "raster": "Mech_4kHz", "samples": 16001},
+      {"name": "vibration_1", "raster": "HostService", "samples": 256001}
+    ],
+    "signal_sampling_documented_in_measuring_log": {
+      "motor_current": "64 kHz",
+      "vibration": "64 kHz",
+      "mechanic_parameters_force_torque_speed": "4 kHz",
+      "temperature": "1 Hz"
+    },
+    "duration": "The representative recordings are 4 seconds; sample counts are consistent with roughly 4 s at their documented rasters, including endpoint samples."
+  },
+  "bearing_metadata": {
+    "K001_directly_documented": {
+      "bearing_code": "K001",
+      "bearing_type": "deep groove ball bearing",
+      "bearing_designation": "6203",
+      "manufacturer": "IBU",
+      "pitch_circle_diameter_mm": 29.05,
+      "number_of_rolling_elements": 8,
+      "rolling_element_diameter_mm": 6.75,
+      "nominal_pressure_angle_degrees": 0,
+      "reported_lifetime": ">50 h",
+      "profile_load_range_N": "1000-3000",
+      "profile_rotational_speed_range_min_inverse": "1500-2000"
+    },
+    "condition_status": "UNKNOWN from the locally available documentation. The K001 profile is headed 'Profile of rolling bearing damage' but supplies no explicit healthy/damaged status, artificial/real provenance, damage location, damage type, subtype, or geometry.",
+    "available_categories": "No complete bearing-condition taxonomy is available locally. K001 is the only bearing identifier available; healthy, artificial-damage, natural/real-damage, and damage-location/type/subtype classes cannot be established from this archive."
+  },
+  "operating_conditions": {
+    "documented_variants": ["N15_M07_F10", "N09_M07_F10", "N15_M01_F10", "N15_M07_F04"],
+    "per_variant_recordings": 20,
+    "preheating": {"condition": "F=2000 N; n=2000 1/min", "duration_minutes": 37, "temperature_reached_C": 45},
+    "instrumentation": "The measuring log documents motor-current, force, speed, torque, vibration, and temperature instrumentation; detailed device names are retained in the source PDF."
+  },
+  "possible_future_label_axes_not_selected": [
+    "bearing identifier", "official healthy/damaged condition", "damage provenance (artificial versus natural/real)", "damage location/type/subtype", "operating-condition code"
+  ],
+  "leakage_and_grouping": {
+    "window_leakage": "Randomly assigning windows from a single 4-second recording to different partitions leaks highly correlated waveform, acquisition, operating-condition, and bearing-specific signatures. It can inflate apparent generalization substantially.",
+    "minimum_group": "Keep all derived windows from one original MAT recording together.",
+    "recommended_primary_group": "Bearing identifier / physical bearing, if the target task is intended to generalize to unseen bearings. All recordings and all windows for that bearing must remain in one partition.",
+    "secondary_grouping_consideration": "Measurement/acquisition session and operating condition should be retained as metadata. If a bearing is recorded under multiple operating conditions, those conditions must not create leakage through overlapping windows or repeated recording artifacts.",
+    "bearing_level_split_possible_now": false,
+    "reason": "Only K001 is available, so there is one independent bearing identity and no valid train/validation/test partition by bearing.",
+    "operating_condition_generalization": "Potentially testable only after additional bearings and documented labels are available: hold out one or more N/M/F conditions for testing while ensuring bearing identities are not shared across partitions. With K001 alone it cannot test classification generalization.",
+    "independent_bearings_sufficient_now": false
+  },
+  "additional_archives_needed": [
+    "Additional bearing archives spanning every organizer-approved target condition/category, with their official bearing-profile PDFs and measuring logs.",
+    "Official Paderborn naming and damage-taxonomy documentation defining N/M/F and bearing-code prefixes (including examples such as KA01).",
+    "Organizer-approved task statement, fixed split protocol or enough independent bearing IDs to create one, exact mandatory baseline, and primary metric."
+  ],
+  "unknowns_blocking_task_design": [
+    "K001 health/damage status and provenance.",
+    "Damage location/type/subtype and label taxonomy for all bearing IDs.",
+    "Official Track 1 label scheme, fixed splits, baseline, and primary metric.",
+    "Whether the intended signal is vibration only, current only, a defined sensor subset, or another representation.",
+    "Whether file naming codes have a formally documented unit/setpoint legend."
+  ],
+  "integrity": {"models_trained": false, "splits_created": false, "processed_dataset_created": false, "config_modified": false, "results_claimed": false}
+}

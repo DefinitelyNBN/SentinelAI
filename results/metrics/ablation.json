@@ -1,0 +1,22 @@
+{
+  "hypothesis": "Combining temporal and frequency representations will produce better bearing-damage classification than using either representation alone.",
+  "primary_metric": "macro_f1",
+  "primary_ablation": {
+    "description": "Full SentinelAI vs Temporal-Only (impact of adding STFT frequency branch)",
+    "sentinelai_val_f1": 0.5557887373207415,
+    "temporal_only_val_f1": 0.5557887373207415,
+    "improvement_absolute": 0.0,
+    "improvement_pct": 0.0
+  },
+  "all_models_validation_comparison": {
+    "baseline_1dcnn": 0.5557887373207415,
+    "temporal_only": 0.5557887373207415,
+    "frequency_only": 0.6151785300706604,
+    "sentinelai": 0.5557887373207415
+  },
+  "sentinelai_vs_baseline": {
+    "improvement_absolute": 0.0,
+    "improvement_pct": 0.0
+  },
+  "hypothesis_supported_on_validation": false
+}

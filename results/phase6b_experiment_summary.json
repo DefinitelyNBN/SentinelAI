@@ -1,0 +1,110 @@
+{
+  "phase": "Phase 6B — Diagnostic Audit and Validation-Only Improvement",
+  "project": "SentinelAI",
+  "task": "Three-class bearing-disjoint vibration classification (0=healthy, 1=outer_ring, 2=inner_ring)",
+  "dataset": "Paderborn University Bearing Dataset",
+  "status": "COMPLETE — AWAITING HUMAN REVIEW",
+  "test_set_status": "LOCKED AND UNTOUCHED",
+  "diagnostic_audit_summary": {
+    "all_checks_passed": true,
+    "anomalies_found": [],
+    "root_cause_finding": "In the validation split, KA15 (outer ring) has plastic deformation damage producing low vibration amplitude (RMS 0.191V, std 0.186V) and a positive DC offset (+0.0434V), which closely mimics inner ring validation bearing KI21 (RMS 0.240V, DC offset +0.0436V). In contrast, training outer ring bearings KA04 and KA16 are severe flaking fatigue damages with massive energy (RMS 0.42V-0.49V). Time-domain models therefore misclassify KA15 as inner ring damage."
+  },
+  "experiments_comparison": [
+    {
+      "model_key": "baseline_1dcnn",
+      "model_name": "Baseline 1-D CNN",
+      "params": 3971,
+      "val_macro_f1": 0.5558,
+      "val_accuracy": 0.6681,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "outer_ring_recall": 0.0,
+      "inner_ring_recall": 1.0,
+      "healthy_recall": 1.0,
+      "confusion_matrix": [[320, 0, 0], [0, 0, 317], [0, 0, 318]]
+    },
+    {
+      "model_key": "temporal_only",
+      "model_name": "Temporal Only (1-D Conv)",
+      "params": 19203,
+      "val_macro_f1": 0.5558,
+      "val_accuracy": 0.6681,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "outer_ring_recall": 0.0,
+      "inner_ring_recall": 1.0,
+      "healthy_recall": 1.0,
+      "confusion_matrix": [[320, 0, 0], [0, 0, 317], [0, 0, 318]]
+    },
+    {
+      "model_key": "frequency_only",
+      "model_name": "Frequency Only (STFT 2-D Conv)",
+      "params": 11363,
+      "val_macro_f1": 0.6152,
+      "val_accuracy": 0.6461,
+      "val_macro_precision": 0.6253,
+      "val_macro_recall": 0.6450,
+      "outer_ring_recall": 0.2303,
+      "inner_ring_recall": 0.7358,
+      "healthy_recall": 0.9688,
+      "confusion_matrix": [[310, 0, 10], [38, 73, 206], [0, 84, 234]]
+    },
+    {
+      "model_key": "sentinelai_original",
+      "model_name": "Original SentinelAI (Dual-Branch Fusion)",
+      "params": 30307,
+      "val_macro_f1": 0.5558,
+      "val_accuracy": 0.6681,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "outer_ring_recall": 0.0,
+      "inner_ring_recall": 1.0,
+      "healthy_recall": 1.0,
+      "confusion_matrix": [[320, 0, 0], [0, 0, 317], [0, 0, 318]]
+    },
+    {
+      "model_key": "sentinelai_6ba_class_weighted",
+      "model_name": "Experiment 6B-A: SentinelAI + Class-Weighted Loss",
+      "params": 30307,
+      "weights": [0.83229, 1.11146, 1.11262],
+      "val_macro_f1": 0.5558,
+      "val_accuracy": 0.6681,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "outer_ring_recall": 0.0,
+      "inner_ring_recall": 1.0,
+      "healthy_recall": 1.0,
+      "confusion_matrix": [[320, 0, 0], [0, 0, 317], [0, 0, 318]]
+    },
+    {
+      "model_key": "sentinelai_6bb_projected_fusion",
+      "model_name": "Experiment 6B-B: SentinelAI + Projected Feature Fusion Layer",
+      "params": 47203,
+      "val_macro_f1": 0.5558,
+      "val_accuracy": 0.6681,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "outer_ring_recall": 0.0,
+      "inner_ring_recall": 1.0,
+      "healthy_recall": 1.0,
+      "confusion_matrix": [[320, 0, 0], [0, 0, 317], [0, 0, 318]]
+    }
+  ],
+  "experiment_6bb_details": {
+    "modification": "Replacing naive concatenation with independent LayerNorm + Linear + GELU projection branches (proj_t and proj_f) followed by a 2-stage projection fusion layer.",
+    "rationale": "Mitigate modality dominance of the 1D temporal branch by projecting both time and frequency representations into normalized latent spaces before fused classification.",
+    "val_macro_f1": 0.5557887373207415,
+    "val_accuracy": 0.6680628272251309,
+    "outer_ring_recall": 0.0,
+    "inner_ring_recall": 1.0,
+    "improved_over_original": false,
+    "improved_over_6ba": false,
+    "checkpoint_path": "results/experiments/phase6b/sentinelai_projected_fusion.pt"
+  },
+  "scientific_conclusions": {
+    "intervention_outcome": "FAILED_TO_IMPROVE_VALIDATION_MACRO_F1",
+    "explanation": "Neither training-derived class weighting (6B-A) nor projected feature fusion (6B-B) altered the validation predictions. The model persistently misclassifies validation bearing KA15 as inner-ring damage because KA15's physical time-domain profile (plastic deformation, small amplitude, positive DC offset) exactly mirrors the training inner-ring distribution (KI16, KI18). Frequency-Only remains the sole model that achieved non-zero outer-ring recall on validation (0.2303 recall, 0.6152 macro-F1) because it relies on harmonic peak locations rather than time-domain amplitude.",
+    "test_set_policy_adherence": "The test set was strictly NOT evaluated during Phase 6B. All experimental decisions remain governed by validation Macro-F1."
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "phase": "Phase 5 — Dataset Generation and Manifest",
+  "project": "SentinelAI",
+  "dataset": "Paderborn University Bearing Dataset",
+  "status": "COMPLETE",
+
+  "bearing_split": {
+    "source": "Phase 4 approved candidate split — results/paderborn_dataset_design.json",
+    "train_bearings":      ["K001", "K002", "K003", "K004", "KA04", "KA16", "KA30", "KI04", "KI16", "KI18"],
+    "validation_bearings": ["K005", "KA15", "KI21"],
+    "test_bearings":       ["K006", "KA22", "KI14"],
+    "class_balance": {
+      "train":      {"healthy": 4, "outer_ring": 3, "inner_ring": 3},
+      "validation": {"healthy": 1, "outer_ring": 1, "inner_ring": 1},
+      "test":       {"healthy": 1, "outer_ring": 1, "inner_ring": 1}
+    }
+  },
+
+  "windowing_policy": {
+    "method":           "discrete_sample_indexing",
+    "resampling":       false,
+    "window_length_s":  1.0,
+    "window_samples":   64000,
+    "stride_samples":   64000,
+    "overlap_pct":      0.0,
+    "nominal_fs_hz":    64000
+  },
+
+  "manifest": {
+    "path": "data/metadata/paderborn_manifest.csv",
+    "sha256": "71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf",
+    "total_rows": 5101,
+    "columns": [
+      "window_id", "mat_path", "label", "label_id", "split",
+      "bearing_id", "archive", "operating_condition",
+      "speed_rpm", "load_torque_nm", "radial_force_n",
+      "measurement_id", "window_index",
+      "start_sample", "end_sample", "start_time_s", "end_time_s",
+      "sampling_rate_hz", "damage_location", "damage_mode", "damage_extent"
+    ]
+  },
+
+  "window_counts": {
+    "total": 5101,
+    "by_split": {
+      "train":      3191,
+      "validation":  955,
+      "test":        955
+    },
+    "by_class": {
+      "healthy":    1918,
+      "outer_ring": 1589,
+      "inner_ring": 1594
+    },
+    "by_bearing": {
+      "K001": 320, "K002": 318, "K003": 320, "K004": 320,
+      "K005": 320, "K006": 320,
+      "KA04": 319, "KA15": 317, "KA16": 319, "KA22": 315, "KA30": 319,
+      "KI04": 320, "KI14": 320, "KI16": 319, "KI18": 317, "KI21": 318
+    },
+    "class_by_split": {
+      "train":      {"healthy": 1278, "outer_ring": 957,  "inner_ring": 956},
+      "validation": {"healthy":  320, "outer_ring": 317,  "inner_ring": 318},
+      "test":       {"healthy":  320, "outer_ring": 315,  "inner_ring": 320}
+    },
+    "condition_by_split": {
+      "train":      {"N09_M07_F10": 799, "N15_M01_F10": 798, "N15_M07_F04": 796, "N15_M07_F10": 798},
+      "validation": {"N09_M07_F10": 238, "N15_M01_F10": 239, "N15_M07_F04": 240, "N15_M07_F10": 238},
+      "test":       {"N09_M07_F10": 239, "N15_M01_F10": 239, "N15_M07_F04": 237, "N15_M07_F10": 240}
+    },
+    "recordings_by_split": {
+      "train": 800, "validation": 240, "test": 240
+    },
+    "avg_windows_per_recording": 3.99,
+    "avg_windows_per_bearing": 318.81,
+    "phase4_estimate_was": 3840,
+    "actual_count": 5101,
+    "difference_note": "KI16 duration outliers (4.67 s and 4.28 s recordings) yield 4 windows instead of 3, adding ~261 extra windows. All are in the train split."
+  },
+
+  "normalization": {
+    "method": "global_zscore_training_only",
+    "mean": 0.008097140821158423,
+    "std":  0.3537545934612981,
+    "n_samples": 204224000,
+    "n_windows_used": 3191,
+    "path": "data/metadata/paderborn_norm_stats.json",
+    "leakage_prevention": "Statistics computed exclusively from train-split windows before validation/test datasets are constructed."
+  },
+
+  "integrity_checks": {
+    "passed": 12,
+    "failed": 0,
+    "checks": [
+      "No bearing in multiple splits",
+      "No MAT recording in multiple splits",
+      "No window crosses recording boundary",
+      "No duplicate window IDs",
+      "All source MAT files exist",
+      "Valid start/end offsets",
+      "Approved class labels only",
+      "Approved bearings only",
+      "No excluded bearings",
+      "label_id consistent with label",
+      "Manifest order is deterministic",
+      "All operating conditions approved"
+    ]
+  },
+
+  "qc": {
+    "windows_inspected": 11,
+    "all_passed": true,
+    "classes_covered": ["healthy", "outer_ring", "inner_ring"],
+    "splits_covered": ["train", "validation", "test"],
+    "outliers_tested": ["KI16_N15_M01_F10_m04 (4.67s)", "KI16_N15_M07_F10_m09 (4.28s)"],
+    "shape_errors": 0,
+    "nan_errors": 0,
+    "inf_errors": 0,
+    "output_files": ["results/qc_windows.json", "results/qc_waveforms.png"]
+  },
+
+  "config_changes": {
+    "dataset.name":       "Paderborn University Bearing Dataset",
+    "dataset.subtrack":   "Three-class bearing-disjoint vibration classification",
+    "dataset.manifest":   "data/metadata/paderborn_manifest.csv",
+    "dataset.norm_stats": "data/metadata/paderborn_norm_stats.json",
+    "dataset.root":       ".",
+    "dataset.signal_length": 64000,
+    "dataset.sampling_rate": 64000,
+    "dataset.num_classes":   3,
+    "dataset.representation": "1d_signal",
+    "model.n_fft":        2048,
+    "model.hop_length":   512,
+    "primary_metric":     "macro_f1",
+    "unchanged": ["model architecture", "temporal/frequency channels", "embedding_dim", "dropout",
+                  "optimizer", "learning_rate", "weight_decay", "batch_size", "epochs", "patience"]
+  },
+
+  "files_created": [
+    "data/metadata/paderborn_manifest.csv",
+    "data/metadata/paderborn_norm_stats.json",
+    "src/paderborn_mat.py",
+    "src/generate_manifest.py",
+    "src/paderborn_dataset.py",
+    "src/phase5_qc.py",
+    "results/paderborn_manifest_stats.json",
+    "results/paderborn_manifest_summary.json",
+    "results/paderborn_manifest_summary.md",
+    "results/qc_windows.json",
+    "results/qc_waveforms.png"
+  ],
+  "files_modified": [
+    "configs/config.yaml"
+  ],
+
+  "open_decisions": [
+    "Macro-F1 is set as primary_metric in config but is a team recommendation, not an organizer mandate.",
+    "The official baseline architecture for Track 1 is not specified by the organizer. Must be defined before Phase 6 (training).",
+    "Augmentation is disabled; enabling random-crop (random start offset within file) during training would be physically defensible.",
+    "The 0.5-second window ablation (n_fft=1024, hop=256, 7 windows/recording) is documented in Phase 4 but not implemented here."
+  ],
+
+  "no_training_performed": true,
+  "no_splits_evaluated_on_test": true,
+  "archives_not_modified": true
+}

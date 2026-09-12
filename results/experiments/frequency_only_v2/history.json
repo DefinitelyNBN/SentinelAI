@@ -1,0 +1,51 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 0.6019,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 13.7
+  },
+  {
+    "epoch": 2,
+    "train_loss": 0.3389,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 13.5
+  },
+  {
+    "epoch": 3,
+    "train_loss": 0.2706,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 13.1
+  },
+  {
+    "epoch": 4,
+    "train_loss": 0.2488,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 12.9
+  },
+  {
+    "epoch": 5,
+    "train_loss": 0.2296,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 12.3
+  },
+  {
+    "epoch": 6,
+    "train_loss": 0.23,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 13.0
+  },
+  {
+    "epoch": 7,
+    "train_loss": 0.2059,
+    "macro_f1": 0.1673,
+    "accuracy": 0.3351,
+    "epoch_time_s": 12.2
+  }
+]

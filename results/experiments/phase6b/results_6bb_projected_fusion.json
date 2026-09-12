@@ -1,0 +1,381 @@
+{
+  "experiment": "6B-B",
+  "description": "Full SentinelAI + Projected Feature Fusion Layer (independent LayerNorm+Linear projections)",
+  "validation_metrics": {
+    "accuracy": 0.6680628272251309,
+    "macro_f1": 0.5557887373207415,
+    "precision_macro": 0.5002624671916011,
+    "recall_macro": 0.6666666666666666,
+    "per_class": {
+      "healthy": {
+        "class_id": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "outer_ring": {
+        "class_id": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "inner_ring": {
+        "class_id": 2,
+        "precision": 0.5007874015748032,
+        "recall": 1.0,
+        "f1": 0.6673662119622247
+      }
+    },
+    "confusion_matrix": [
+      [
+        320,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        317
+      ],
+      [
+        0,
+        0,
+        318
+      ]
+    ],
+    "num_samples": 955
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5162594377994537,
+      "epoch_time_s": 146.30892491340637,
+      "accuracy": 0.6680628272251309,
+      "macro_f1": 0.5557887373207415,
+      "precision_macro": 0.5002624671916011,
+      "recall_macro": 0.6666666666666666,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.5007874015748032,
+          "recall": 1.0,
+          "f1": 0.6673662119622247
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          0,
+          318
+        ]
+      ],
+      "num_samples": 955
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.24616695698350669,
+      "epoch_time_s": 161.83951997756958,
+      "accuracy": 0.6293193717277487,
+      "macro_f1": 0.527021458364742,
+      "precision_macro": 0.49107142857142855,
+      "recall_macro": 0.6281249999999999,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 0.884375,
+          "f1": 0.9386401326699835
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.4732142857142857,
+          "recall": 1.0,
+          "f1": 0.6424242424242425
+        }
+      },
+      "confusion_matrix": [
+        [
+          283,
+          0,
+          37
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          0,
+          318
+        ]
+      ],
+      "num_samples": 955
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.21146584559231996,
+      "epoch_time_s": 161.1938030719757,
+      "accuracy": 0.6680628272251309,
+      "macro_f1": 0.5557887373207415,
+      "precision_macro": 0.5002624671916011,
+      "recall_macro": 0.6666666666666666,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.5007874015748032,
+          "recall": 1.0,
+          "f1": 0.6673662119622247
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          0,
+          318
+        ]
+      ],
+      "num_samples": 955
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.193739910479635,
+      "epoch_time_s": 161.38006687164307,
+      "accuracy": 0.6680628272251309,
+      "macro_f1": 0.5557887373207415,
+      "precision_macro": 0.5002624671916011,
+      "recall_macro": 0.6666666666666666,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.5007874015748032,
+          "recall": 1.0,
+          "f1": 0.6673662119622247
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          0,
+          318
+        ]
+      ],
+      "num_samples": 955
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.12490734642371536,
+      "epoch_time_s": 159.44372010231018,
+      "accuracy": 0.6680628272251309,
+      "macro_f1": 0.5557887373207415,
+      "precision_macro": 0.5002624671916011,
+      "recall_macro": 0.6666666666666666,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.5007874015748032,
+          "recall": 1.0,
+          "f1": 0.6673662119622247
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          0,
+          318
+        ]
+      ],
+      "num_samples": 955
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.14184273770079017,
+      "epoch_time_s": 170.75603818893433,
+      "accuracy": 0.6628272251308901,
+      "macro_f1": 0.5520030246741078,
+      "precision_macro": 0.49895833333333334,
+      "recall_macro": 0.6614583333333334,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 0.984375,
+          "f1": 0.9921259842519685
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.496875,
+          "recall": 1.0,
+          "f1": 0.6638830897703549
+        }
+      },
+      "confusion_matrix": [
+        [
+          315,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          0,
+          318
+        ]
+      ],
+      "num_samples": 955
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.11544955936260522,
+      "epoch_time_s": 167.32761693000793,
+      "accuracy": 0.6670157068062827,
+      "macro_f1": 0.5553221288515405,
+      "precision_macro": 0.5,
+      "recall_macro": 0.6656184486373166,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.5,
+          "recall": 0.9968553459119497,
+          "f1": 0.6659663865546218
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          317
+        ],
+        [
+          0,
+          1,
+          317
+        ]
+      ],
+      "num_samples": 955
+    }
+  ],
+  "training_time_s": 1128.277753829956,
+  "checkpoint_path": "/Users/nbn/Desktop/hackathons /dlsat/results/experiments/phase6b/sentinelai_projected_fusion.pt"
+}

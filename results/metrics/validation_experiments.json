@@ -1,0 +1,253 @@
+{
+  "metadata": {
+    "seed": 42,
+    "device": "mps",
+    "torch_version": "2.14.0",
+    "python_version": "3.13.13",
+    "manifest_sha256": "71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf",
+    "normalization": {
+      "mean": 0.008097140821158423,
+      "std": 0.3537545934612981
+    },
+    "train_bearings": [
+      "K001",
+      "K002",
+      "K003",
+      "K004",
+      "KA04",
+      "KA16",
+      "KA30",
+      "KI04",
+      "KI16",
+      "KI18"
+    ],
+    "val_bearings": [
+      "K005",
+      "KA15",
+      "KI21"
+    ],
+    "test_bearings": [
+      "K006",
+      "KA22",
+      "KI14"
+    ]
+  },
+  "models": {
+    "baseline_1dcnn": {
+      "info": {
+        "display_name": "Baseline 1-D CNN",
+        "parameter_count": 3971,
+        "model_size_kb": 15.51171875,
+        "training_time_s": 111.70692205429077,
+        "epochs_trained": 8,
+        "checkpoint_path": "results/checkpoints/baseline_1dcnn.pt"
+      },
+      "validation": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      }
+    },
+    "temporal_only": {
+      "info": {
+        "display_name": "Temporal Only (1-D Conv)",
+        "parameter_count": 19203,
+        "model_size_kb": 75.77734375,
+        "training_time_s": 254.29381203651428,
+        "epochs_trained": 7,
+        "checkpoint_path": "results/checkpoints/temporal_only.pt"
+      },
+      "validation": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      }
+    },
+    "frequency_only": {
+      "info": {
+        "display_name": "Frequency Only (STFT 2-D Conv)",
+        "parameter_count": 11363,
+        "model_size_kb": 52.77734375,
+        "training_time_s": 1008.0465836524963,
+        "epochs_trained": 18,
+        "checkpoint_path": "results/checkpoints/frequency_only.pt"
+      },
+      "validation": {
+        "accuracy": 0.6460732984293194,
+        "macro_f1": 0.6151785300706604,
+        "precision_macro": 0.6252575835224637,
+        "recall_macro": 0.6449609894252326,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 0.8908045977011494,
+            "recall": 0.96875,
+            "f1": 0.9281437125748503
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.46496815286624205,
+            "recall": 0.2302839116719243,
+            "f1": 0.3080168776371308
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.52,
+            "recall": 0.7358490566037735,
+            "f1": 0.6093749999999999
+          }
+        },
+        "confusion_matrix": [
+          [
+            310,
+            0,
+            10
+          ],
+          [
+            38,
+            73,
+            206
+          ],
+          [
+            0,
+            84,
+            234
+          ]
+        ],
+        "num_samples": 955
+      }
+    },
+    "sentinelai": {
+      "info": {
+        "display_name": "Full SentinelAI (Dual-Branch Fusion)",
+        "parameter_count": 30307,
+        "model_size_kb": 127.54296875,
+        "training_time_s": 639.8011271953583,
+        "epochs_trained": 8,
+        "checkpoint_path": "results/checkpoints/sentinelai.pt"
+      },
+      "validation": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      }
+    }
+  }
+}

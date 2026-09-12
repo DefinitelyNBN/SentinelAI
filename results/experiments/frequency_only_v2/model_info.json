@@ -1,0 +1,24 @@
+{
+  "display_name": "Frequency-Only v2",
+  "description": "FrequencyOnly with STFT restricted to 0-1 kHz band",
+  "parameter_count": 11363,
+  "model_size_kb": 52.77734375,
+  "training_time_s": 90.7,
+  "epochs_trained": 7,
+  "best_epoch": 1,
+  "checkpoint_path": "/Users/nbn/Desktop/hackathons /dlsat/results/experiments/frequency_only_v2/checkpoint.pt",
+  "stft_params": {
+    "sampling_rate_hz": 64000,
+    "n_fft": 2048,
+    "hop_length": 512,
+    "window": "hann",
+    "freq_resolution_hz_per_bin": 31.25,
+    "total_bins": 1025,
+    "retained_bins": 33,
+    "freq_range_hz": [
+      0.0,
+      1000.0
+    ]
+  },
+  "band_limit_hz": 1000.0
+}

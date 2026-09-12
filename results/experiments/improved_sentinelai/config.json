@@ -1,0 +1,99 @@
+{
+  "seed": 42,
+  "project_name": "SENTINELAI",
+  "track": "Track 1 \u2014 Deep Learning for Signals",
+  "version": "2.0",
+  "dataset": {
+    "name": "Paderborn University Bearing Dataset",
+    "subtrack": "Three-class bearing-disjoint vibration classification",
+    "root": ".",
+    "manifest": "data/metadata/paderborn_manifest.csv",
+    "norm_stats": "data/metadata/paderborn_norm_stats.json",
+    "path_column": "mat_path",
+    "label_column": "label",
+    "split_column": "split",
+    "train_split": "train",
+    "val_split": "validation",
+    "test_split": "test",
+    "representation": "1d_signal",
+    "signal_length": 64000,
+    "sampling_rate": 64000,
+    "num_classes": 3,
+    "classes": [
+      "healthy",
+      "outer_ring",
+      "inner_ring"
+    ]
+  },
+  "official_baseline": {
+    "name": null,
+    "implementation": null,
+    "preprocessing": null,
+    "training_protocol": null
+  },
+  "primary_metric": "macro_f1",
+  "preprocessing": {
+    "filter_enabled": false,
+    "filter_type": "bandpass",
+    "filter_low_hz": 100,
+    "filter_high_hz": 20000,
+    "filter_order": 4,
+    "normalization_method": "zscore"
+  },
+  "model": {
+    "temporal_channels": [
+      32,
+      64
+    ],
+    "frequency_channels": [
+      16,
+      32
+    ],
+    "improved_temporal_channels": [
+      12,
+      24
+    ],
+    "improved_frequency_channels": [
+      8,
+      16
+    ],
+    "embedding_dim": 64,
+    "dropout": 0.2,
+    "n_fft": 2048,
+    "hop_length": 512,
+    "attention": {
+      "enabled": true,
+      "reduction": 4
+    },
+    "fusion_type": "gated",
+    "use_class_weights": false,
+    "band_limit_hz": 1000.0
+  },
+  "training": {
+    "batch_size": 32,
+    "epochs": 30,
+    "max_epochs": 30,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 6,
+    "num_workers": 0,
+    "scheduler": "cosine",
+    "grad_clip": 1.0,
+    "augmentation": {
+      "gaussian_noise_std": 0.0,
+      "amplitude_scale": 0.0
+    }
+  },
+  "evaluation": {
+    "metric": "macro_f1",
+    "checkpoint_priority": [
+      "results/checkpoints/msrf_v2_best.pt",
+      "results/checkpoints/frequency_only.pt",
+      "results/checkpoints/sentinelai.pt"
+    ]
+  },
+  "final_evaluation": {
+    "enabled": false,
+    "model": "sentinelai"
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "phase": "Phase 7 \u2014 SentinelAI-MSRF v2 Full Training",
+  "manifest_sha256": "71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf",
+  "test_set_accessed": false,
+  "model": "SentinelAI_MSRF_v2",
+  "n_params": 98409,
+  "size_kb": 396.02734375,
+  "total_training_time_s": 1020.8736400604248,
+  "config": {
+    "lr": 0.001,
+    "wd": 0.0001,
+    "batch_size": 32,
+    "max_epochs": 30,
+    "patience": 6,
+    "optimizer": "AdamW",
+    "scheduler": "CosineAnnealingLR",
+    "grad_clip": 1.0,
+    "seed": 42
+  },
+  "best_epoch_validation": {
+    "accuracy": 0.41361256544502617,
+    "macro_f1": 0.3581055689742039,
+    "precision_macro": 0.3583948201136755,
+    "recall_macro": 0.4122190354079453,
+    "per_class": {
+      "healthy": {
+        "class_id": 0,
+        "precision": 0.608786610878661,
+        "recall": 0.909375,
+        "f1": 0.7293233082706766
+      },
+      "outer_ring": {
+        "class_id": 1,
+        "precision": 0.25806451612903225,
+        "recall": 0.07570977917981073,
+        "f1": 0.11707317073170732
+      },
+      "inner_ring": {
+        "class_id": 2,
+        "precision": 0.20833333333333334,
+        "recall": 0.25157232704402516,
+        "f1": 0.22792022792022795
+      }
+    },
+    "confusion_matrix": [
+      [
+        291,
+        0,
+        29
+      ],
+      [
+        18,
+        24,
+        275
+      ],
+      [
+        169,
+        69,
+        80
+      ]
+    ],
+    "num_samples": 955
+  },
+  "best_val_macro_f1": 0.3581055689742039,
+  "reference_freq_only_v1_val_f1": 0.6152,
+  "delta_vs_reference": -0.25709443102579604,
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.29912541025892053,
+      "val_accuracy": 0.3738219895287958,
+      "val_macro_f1": 0.2754777516518325,
+      "improved": true,
+      "time_s": 82.0414981842041
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.027276750535215017,
+      "val_accuracy": 0.42408376963350786,
+      "val_macro_f1": 0.3127243127243127,
+      "improved": true,
+      "time_s": 79.52835202217102
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.01430143248257486,
+      "val_accuracy": 0.37591623036649213,
+      "val_macro_f1": 0.26790055160036624,
+      "improved": false,
+      "time_s": 79.58531785011292
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.004075989741867295,
+      "val_accuracy": 0.34345549738219894,
+      "val_macro_f1": 0.23218520609824955,
+      "improved": false,
+      "time_s": 80.51199388504028
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.013722252195440538,
+      "val_accuracy": 0.41361256544502617,
+      "val_macro_f1": 0.3581055689742039,
+      "improved": true,
+      "time_s": 90.88560509681702
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.020451223581642468,
+      "val_accuracy": 0.33298429319371725,
+      "val_macro_f1": 0.173202614379085,
+      "improved": false,
+      "time_s": 94.12011313438416
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.002793141775952671,
+      "val_accuracy": 0.33507853403141363,
+      "val_macro_f1": 0.16732026143790854,
+      "improved": false,
+      "time_s": 90.374351978302
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.002590912245123587,
+      "val_accuracy": 0.3738219895287958,
+      "val_macro_f1": 0.24148978057772844,
+      "improved": false,
+      "time_s": 88.02936029434204
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0009957059661393592,
+      "val_accuracy": 0.34345549738219894,
+      "val_macro_f1": 0.22120320256863577,
+      "improved": false,
+      "time_s": 96.90687012672424
+    },
+    {
+      "epoch": 10,
+      "train_loss": 7.692713722343512e-05,
+      "val_accuracy": 0.3319371727748691,
+      "val_macro_f1": 0.17600558613377804,
+      "improved": false,
+      "time_s": 89.91618204116821
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.0021864103493976703,
+      "val_accuracy": 0.3581151832460733,
+      "val_macro_f1": 0.22715059178279526,
+      "improved": false,
+      "time_s": 88.32671189308167
+    }
+  ]
+}

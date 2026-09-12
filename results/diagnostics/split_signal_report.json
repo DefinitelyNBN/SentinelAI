@@ -1,0 +1,245 @@
+{
+  "split_integrity": {
+    "train": {
+      "bearings": [
+        "K001",
+        "K002",
+        "K003",
+        "K004",
+        "KA04",
+        "KA16",
+        "KA30",
+        "KI04",
+        "KI16",
+        "KI18"
+      ],
+      "windows": 3191,
+      "windows_by_class": {
+        "healthy": 1278,
+        "outer_ring": 957,
+        "inner_ring": 956
+      }
+    },
+    "validation": {
+      "bearings": [
+        "K005",
+        "KA15",
+        "KI21"
+      ],
+      "windows": 955,
+      "windows_by_class": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      }
+    },
+    "test": {
+      "bearings": [
+        "K006",
+        "KA22",
+        "KI14"
+      ],
+      "windows": 955,
+      "windows_by_class": {
+        "healthy": 320,
+        "outer_ring": 315,
+        "inner_ring": 320
+      }
+    }
+  },
+  "per_bearing": {
+    "K001": {
+      "split": "train",
+      "label": "healthy",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": -0.015572495525702834,
+      "std": 0.3641196504235268,
+      "rms": 0.3644541233778,
+      "peak_amplitude": 4.471435546875,
+      "crest_factor": 12.269681742874239,
+      "kurtosis": 19.80594072341919
+    },
+    "K002": {
+      "split": "train",
+      "label": "healthy",
+      "windows": 318,
+      "sampled_windows": 20,
+      "mean": -0.01002221335656941,
+      "std": 0.17633112892508507,
+      "rms": 0.17661701813340186,
+      "peak_amplitude": 3.255462646484375,
+      "crest_factor": 18.42112820274098,
+      "kurtosis": 42.659548950195315
+    },
+    "K003": {
+      "split": "train",
+      "label": "healthy",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": -0.01256932490505278,
+      "std": 0.332767578959465,
+      "rms": 0.33300728499889376,
+      "peak_amplitude": 4.279632568359375,
+      "crest_factor": 12.859484890297967,
+      "kurtosis": 21.040305042266844
+    },
+    "K004": {
+      "split": "train",
+      "label": "healthy",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": -0.01688296077772975,
+      "std": 0.10606812611222267,
+      "rms": 0.10740413330495358,
+      "peak_amplitude": 1.355743408203125,
+      "crest_factor": 12.621587900170056,
+      "kurtosis": 16.963790225982667
+    },
+    "K005": {
+      "split": "validation",
+      "label": "healthy",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": -0.020135002117604016,
+      "std": 0.1141125936061144,
+      "rms": 0.11587705053389072,
+      "peak_amplitude": 1.284637451171875,
+      "crest_factor": 11.08611322259198,
+      "kurtosis": 13.530386114120484
+    },
+    "K006": {
+      "split": "test",
+      "label": "healthy",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": -0.014245085697621108,
+      "std": 0.3540304943919182,
+      "rms": 0.3543196603655815,
+      "peak_amplitude": 4.274749755859375,
+      "crest_factor": 12.062827251738973,
+      "kurtosis": 20.453958225250243
+    },
+    "KA04": {
+      "split": "train",
+      "label": "outer_ring",
+      "windows": 319,
+      "sampled_windows": 20,
+      "mean": 0.04363374430686236,
+      "std": 0.21040877401828767,
+      "rms": 0.21489073783159257,
+      "peak_amplitude": 1.7437744140625,
+      "crest_factor": 8.114037004838403,
+      "kurtosis": 8.900182628631592
+    },
+    "KA15": {
+      "split": "validation",
+      "label": "outer_ring",
+      "windows": 317,
+      "sampled_windows": 20,
+      "mean": 0.04315211977809667,
+      "std": 0.10963997952640056,
+      "rms": 0.11783537603914737,
+      "peak_amplitude": 1.199951171875,
+      "crest_factor": 10.184512288037158,
+      "kurtosis": 16.028058385849
+    },
+    "KA16": {
+      "split": "train",
+      "label": "outer_ring",
+      "windows": 319,
+      "sampled_windows": 20,
+      "mean": 0.041418650187551975,
+      "std": 0.24629715383052825,
+      "rms": 0.24976708739995956,
+      "peak_amplitude": 1.7041015625,
+      "crest_factor": 6.831022819012313,
+      "kurtosis": 6.026514554023743
+    },
+    "KA22": {
+      "split": "test",
+      "label": "outer_ring",
+      "windows": 315,
+      "sampled_windows": 20,
+      "mean": 0.04078933969140053,
+      "std": 0.09495102055370808,
+      "rms": 0.1033475611358881,
+      "peak_amplitude": 1.14837646484375,
+      "crest_factor": 11.112828117385892,
+      "kurtosis": 19.125953102111815
+    },
+    "KA30": {
+      "split": "train",
+      "label": "outer_ring",
+      "windows": 319,
+      "sampled_windows": 20,
+      "mean": -0.010477883787825704,
+      "std": 0.2539741277694702,
+      "rms": 0.254209228605032,
+      "peak_amplitude": 3.204193115234375,
+      "crest_factor": 13.295207482333335,
+      "kurtosis": 21.712901639938355
+    },
+    "KI04": {
+      "split": "train",
+      "label": "inner_ring",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": -0.013010380230844021,
+      "std": 0.20632620602846147,
+      "rms": 0.2067374400794506,
+      "peak_amplitude": 3.0029296875,
+      "crest_factor": 14.521144065835989,
+      "kurtosis": 17.403641080856325
+    },
+    "KI14": {
+      "split": "test",
+      "label": "inner_ring",
+      "windows": 320,
+      "sampled_windows": 20,
+      "mean": 0.0434431878849864,
+      "std": 0.1127397321164608,
+      "rms": 0.12084645554423332,
+      "peak_amplitude": 1.23321533203125,
+      "crest_factor": 10.205652291503917,
+      "kurtosis": 12.83358974456787
+    },
+    "KI16": {
+      "split": "train",
+      "label": "inner_ring",
+      "windows": 319,
+      "sampled_windows": 20,
+      "mean": 0.040355939976871015,
+      "std": 0.16765837445855142,
+      "rms": 0.17244950011372567,
+      "peak_amplitude": 1.5093994140625,
+      "crest_factor": 8.755637680881735,
+      "kurtosis": 8.796360301971436
+    },
+    "KI18": {
+      "split": "train",
+      "label": "inner_ring",
+      "windows": 317,
+      "sampled_windows": 20,
+      "mean": 0.04092031493782997,
+      "std": 0.16071470603346824,
+      "rms": 0.16584467142820358,
+      "peak_amplitude": 1.553192138671875,
+      "crest_factor": 9.363520502899119,
+      "kurtosis": 9.207648849487304
+    },
+    "KI21": {
+      "split": "validation",
+      "label": "inner_ring",
+      "windows": 318,
+      "sampled_windows": 20,
+      "mean": 0.04256420824676752,
+      "std": 0.1370190165936947,
+      "rms": 0.1434843897819519,
+      "peak_amplitude": 1.365203857421875,
+      "crest_factor": 9.507287017482271,
+      "kurtosis": 11.184849786758424
+    }
+  },
+  "note": "Feature values are averages over at most the first 20 deterministic windows per bearing."
+}

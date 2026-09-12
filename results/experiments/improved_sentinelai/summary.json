@@ -1,0 +1,157 @@
+{
+  "selection_metric": "validation_macro_f1",
+  "selected_fusion": "gated",
+  "results": {
+    "concat": {
+      "validation": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      },
+      "parameters": 25225,
+      "model_size_kb": 107.55859375,
+      "training_time_s": 365.90116810798645,
+      "checkpoint": "results/experiments/improved_sentinelai/concat.pt"
+    },
+    "gated": {
+      "validation": {
+        "accuracy": 0.6659685863874345,
+        "macro_f1": 0.5620609177771075,
+        "precision_macro": 0.6330666666666667,
+        "recall_macro": 0.6645834573338888,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.4,
+            "recall": 0.012618296529968454,
+            "f1": 0.024464831804281346
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.4992,
+            "recall": 0.9811320754716981,
+            "f1": 0.6617179215270415
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            313
+          ],
+          [
+            0,
+            6,
+            312
+          ]
+        ],
+        "num_samples": 955
+      },
+      "parameters": 25097,
+      "model_size_kb": 107.05859375,
+      "training_time_s": 422.0904140472412,
+      "checkpoint": "results/experiments/improved_sentinelai/gated.pt"
+    },
+    "attention": {
+      "validation": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      },
+      "parameters": 18954,
+      "model_size_kb": 83.0625,
+      "training_time_s": 365.9044210910797,
+      "checkpoint": "results/experiments/improved_sentinelai/attention.pt"
+    }
+  },
+  "test_evaluated": false
+}

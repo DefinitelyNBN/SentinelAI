@@ -1,0 +1,8 @@
+{
+  "display_name": "Full SentinelAI (Dual-Branch Fusion)",
+  "parameter_count": 30307,
+  "model_size_kb": 127.54296875,
+  "training_time_s": 639.8011271953583,
+  "epochs_trained": 8,
+  "checkpoint_path": "results/checkpoints/sentinelai.pt"
+}

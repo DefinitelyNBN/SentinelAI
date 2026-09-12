@@ -1,0 +1,157 @@
+{
+  "selection_metric": "validation_macro_f1",
+  "selected_fusion": "attention",
+  "results": {
+    "concat": {
+      "validation": {
+        "accuracy": 0.0,
+        "macro_f1": 0.0,
+        "precision_macro": 0.0,
+        "recall_macro": 0.0,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            0,
+            4,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "num_samples": 4
+      },
+      "parameters": 25225,
+      "model_size_kb": 107.55859375,
+      "training_time_s": 0.09291696548461914,
+      "checkpoint": "results/smoke/improved_sentinelai/concat.pt"
+    },
+    "gated": {
+      "validation": {
+        "accuracy": 0.0,
+        "macro_f1": 0.0,
+        "precision_macro": 0.0,
+        "recall_macro": 0.0,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            0,
+            0,
+            4
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "num_samples": 4
+      },
+      "parameters": 25097,
+      "model_size_kb": 107.05859375,
+      "training_time_s": 0.0853729248046875,
+      "checkpoint": "results/smoke/improved_sentinelai/gated.pt"
+    },
+    "attention": {
+      "validation": {
+        "accuracy": 1.0,
+        "macro_f1": 0.3333333333333333,
+        "precision_macro": 0.3333333333333333,
+        "recall_macro": 0.3333333333333333,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            4,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "num_samples": 4
+      },
+      "parameters": 18954,
+      "model_size_kb": 83.0625,
+      "training_time_s": 0.09613895416259766,
+      "checkpoint": "results/smoke/improved_sentinelai/attention.pt"
+    }
+  },
+  "test_evaluated": false
+}

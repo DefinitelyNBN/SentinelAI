@@ -1,0 +1,62 @@
+[
+  {
+    "model_key": "baseline_1dcnn",
+    "model_name": "Baseline 1-D CNN",
+    "params": 3971,
+    "model_size_kb": 15.5,
+    "train_time_s": 111.7,
+    "val_accuracy": 0.6681,
+    "val_macro_f1": 0.5558,
+    "val_macro_precision": 0.5003,
+    "val_macro_recall": 0.6667,
+    "test_accuracy": 0.6702,
+    "test_macro_f1": 0.5567,
+    "test_macro_precision": 0.5013,
+    "test_macro_recall": 0.6667
+  },
+  {
+    "model_key": "temporal_only",
+    "model_name": "Temporal Only (1-D Conv)",
+    "params": 19203,
+    "model_size_kb": 75.8,
+    "train_time_s": 254.3,
+    "val_accuracy": 0.6681,
+    "val_macro_f1": 0.5558,
+    "val_macro_precision": 0.5003,
+    "val_macro_recall": 0.6667,
+    "test_accuracy": 0.6702,
+    "test_macro_f1": 0.5567,
+    "test_macro_precision": 0.5013,
+    "test_macro_recall": 0.6667
+  },
+  {
+    "model_key": "frequency_only",
+    "model_name": "Frequency Only (STFT 2-D Conv)",
+    "params": 11363,
+    "model_size_kb": 52.8,
+    "train_time_s": 1008.0,
+    "val_accuracy": 0.6461,
+    "val_macro_f1": 0.6152,
+    "val_macro_precision": 0.6253,
+    "val_macro_recall": 0.645,
+    "test_accuracy": 0.6743,
+    "test_macro_f1": 0.6641,
+    "test_macro_precision": 0.7549,
+    "test_macro_recall": 0.6734
+  },
+  {
+    "model_key": "sentinelai",
+    "model_name": "Full SentinelAI (Dual-Branch Fusion)",
+    "params": 30307,
+    "model_size_kb": 127.5,
+    "train_time_s": 639.8,
+    "val_accuracy": 0.6681,
+    "val_macro_f1": 0.5558,
+    "val_macro_precision": 0.5003,
+    "val_macro_recall": 0.6667,
+    "test_accuracy": 0.8335,
+    "test_macro_f1": 0.8211,
+    "test_macro_precision": 0.8894,
+    "test_macro_recall": 0.8317
+  }
+]

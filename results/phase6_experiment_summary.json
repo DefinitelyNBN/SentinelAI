@@ -1,0 +1,183 @@
+{
+  "phase": "Phase 6 \u2014 Training, Ablation, and Final Evaluation",
+  "project": "SentinelAI",
+  "dataset": {
+    "name": "Paderborn University Bearing Dataset",
+    "task": "Three-class bearing-disjoint vibration classification",
+    "manifest_path": "data/metadata/paderborn_manifest.csv",
+    "manifest_sha256": "71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf",
+    "nominal_sampling_rate_hz": 64000,
+    "window_samples": 64000,
+    "window_duration_s": 1.0,
+    "overlap_pct": 0.0,
+    "normalization": {
+      "method": "global_zscore_training_only",
+      "mean": 0.008097140821158423,
+      "std": 0.3537545934612981
+    },
+    "split": {
+      "train_bearings": [
+        "K001",
+        "K002",
+        "K003",
+        "K004",
+        "KA04",
+        "KA16",
+        "KA30",
+        "KI04",
+        "KI16",
+        "KI18"
+      ],
+      "val_bearings": [
+        "K005",
+        "KA15",
+        "KI21"
+      ],
+      "test_bearings": [
+        "K006",
+        "KA22",
+        "KI14"
+      ],
+      "train_windows": 3191,
+      "val_windows": 955,
+      "test_windows": 955,
+      "train_class_counts": {
+        "healthy": 1278,
+        "outer_ring": 957,
+        "inner_ring": 956
+      },
+      "val_class_counts": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      },
+      "test_class_counts": {
+        "healthy": 320,
+        "outer_ring": 315,
+        "inner_ring": 320
+      }
+    }
+  },
+  "reproducibility": {
+    "seed": 42,
+    "python_version": "3.13.13",
+    "pytorch_version": "2.14.0",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "device": "mps",
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 32,
+    "max_epochs": 30,
+    "patience": 6,
+    "augmentation": "None (disabled)",
+    "primary_metric": "macro_f1"
+  },
+  "model_comparison": [
+    {
+      "model_key": "baseline_1dcnn",
+      "model_name": "Baseline 1-D CNN",
+      "params": 3971,
+      "model_size_kb": 15.5,
+      "train_time_s": 111.7,
+      "val_accuracy": 0.6681,
+      "val_macro_f1": 0.5558,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "test_accuracy": 0.6702,
+      "test_macro_f1": 0.5567,
+      "test_macro_precision": 0.5013,
+      "test_macro_recall": 0.6667
+    },
+    {
+      "model_key": "temporal_only",
+      "model_name": "Temporal Only (1-D Conv)",
+      "params": 19203,
+      "model_size_kb": 75.8,
+      "train_time_s": 254.3,
+      "val_accuracy": 0.6681,
+      "val_macro_f1": 0.5558,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "test_accuracy": 0.6702,
+      "test_macro_f1": 0.5567,
+      "test_macro_precision": 0.5013,
+      "test_macro_recall": 0.6667
+    },
+    {
+      "model_key": "frequency_only",
+      "model_name": "Frequency Only (STFT 2-D Conv)",
+      "params": 11363,
+      "model_size_kb": 52.8,
+      "train_time_s": 1008.0,
+      "val_accuracy": 0.6461,
+      "val_macro_f1": 0.6152,
+      "val_macro_precision": 0.6253,
+      "val_macro_recall": 0.645,
+      "test_accuracy": 0.6743,
+      "test_macro_f1": 0.6641,
+      "test_macro_precision": 0.7549,
+      "test_macro_recall": 0.6734
+    },
+    {
+      "model_key": "sentinelai",
+      "model_name": "Full SentinelAI (Dual-Branch Fusion)",
+      "params": 30307,
+      "model_size_kb": 127.5,
+      "train_time_s": 639.8,
+      "val_accuracy": 0.6681,
+      "val_macro_f1": 0.5558,
+      "val_macro_precision": 0.5003,
+      "val_macro_recall": 0.6667,
+      "test_accuracy": 0.8335,
+      "test_macro_f1": 0.8211,
+      "test_macro_precision": 0.8894,
+      "test_macro_recall": 0.8317
+    }
+  ],
+  "ablation_findings": {
+    "hypothesis": "Combining temporal and frequency representations will produce better bearing-damage classification than using either representation alone.",
+    "primary_metric": "macro_f1",
+    "primary_ablation": {
+      "description": "Full SentinelAI vs Temporal-Only (impact of adding STFT frequency branch)",
+      "sentinelai_val_f1": 0.5557887373207415,
+      "temporal_only_val_f1": 0.5557887373207415,
+      "improvement_absolute": 0.0,
+      "improvement_pct": 0.0
+    },
+    "all_models_validation_comparison": {
+      "baseline_1dcnn": 0.5557887373207415,
+      "temporal_only": 0.5557887373207415,
+      "frequency_only": 0.6151785300706604,
+      "sentinelai": 0.5557887373207415
+    },
+    "sentinelai_vs_baseline": {
+      "improvement_absolute": 0.0,
+      "improvement_pct": 0.0
+    },
+    "hypothesis_supported_on_validation": false
+  },
+  "final_selection": {
+    "selected_model_key": "frequency_only",
+    "selected_model_name": "Frequency Only (STFT 2-D Conv)",
+    "selection_criterion": "Best validation macro_f1",
+    "validation_macro_f1": 0.6151785300706604,
+    "validation_accuracy": 0.6460732984293194,
+    "test_macro_f1": 0.664058707958443,
+    "test_accuracy": 0.6743455497382199,
+    "baseline_test_macro_f1": 0.5567190226876091,
+    "baseline_test_accuracy": 0.6701570680628273,
+    "sentinelai_vs_baseline_test_improvement": 0.2644,
+    "sentinelai_vs_temporal_test_improvement": 0.2644
+  },
+  "scientific_conclusions": {
+    "main_hypothesis": "Combining temporal and frequency representations produces better bearing damage classification than using either alone.",
+    "hypothesis_supported": false,
+    "did_sentinelai_beat_baseline": false,
+    "caveats_and_limitations": [
+      "Bearing-disjoint generalization is exceptionally challenging; machines possess distinct baseline vibration signatures and transfer characteristics.",
+      "Results are strictly from the experimental Paderborn University bearing test rig under laboratory conditions.",
+      "No claim is made of production deployment, real-time industrial readiness, or predictive maintenance integration."
+    ]
+  }
+}

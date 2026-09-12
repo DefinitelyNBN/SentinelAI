@@ -1,0 +1,272 @@
+{
+  "phase": "Phase 4 — Dataset Design and Preprocessing Specification",
+  "project": "SentinelAI — Industrial Signal Intelligence for Early Machine-Failure Detection",
+  "dataset": "Paderborn University Bearing Dataset",
+  "primary_task": "Three-class, bearing-disjoint classification of 1-D vibration signals (Healthy, Real Outer-Ring Damage, Real Inner-Ring Damage)",
+  "verified_dataset_facts": {
+    "archives_extracted": 16,
+    "total_mat_recordings": 1280,
+    "recordings_per_bearing": 80,
+    "operating_conditions_count": 4,
+    "measurements_per_condition": 20,
+    "primary_signal": "vibration_1",
+    "nominal_sampling_rate_hz": 64000,
+    "observed_effective_sampling_rate_hz": {
+      "min": 63998.93,
+      "median": 64000.09,
+      "max": 72961.55,
+      "mean_dt_seconds": 0.000015625
+    },
+    "vibration_sample_count_range": {
+      "min": 255996,
+      "max": 299038,
+      "nominal_duration_seconds": 4.0,
+      "min_duration_seconds": 3.9999375
+    },
+    "duration_outliers": [
+      {
+        "file": "KI16/N15_M01_F10_KI16_4.mat",
+        "duration_seconds": 4.6724536,
+        "samples": 299038
+      },
+      {
+        "file": "KI16/N15_M07_F10_KI16_9.mat",
+        "duration_seconds": 4.2833328,
+        "samples": 274134
+      }
+    ],
+    "bearing_kinematics_6203": {
+      "pitch_diameter_mm": 29.05,
+      "ball_diameter_mm": 6.75,
+      "num_balls": 8,
+      "contact_angle_deg": 0.0,
+      "orders": {
+        "BPFO": 3.0706,
+        "BPFI": 4.9294,
+        "BSF": 2.0357,
+        "FTF": 0.3838
+      },
+      "frequencies_at_1500_rpm": {
+        "shaft_fr_hz": 25.0,
+        "shaft_period_ms": 40.0,
+        "BPFO_hz": 76.76,
+        "BPFI_hz": 123.24,
+        "BSF_hz": 50.89,
+        "FTF_hz": 9.6
+      },
+      "frequencies_at_900_rpm": {
+        "shaft_fr_hz": 15.0,
+        "shaft_period_ms": 66.67,
+        "BPFO_hz": 46.06,
+        "BPFI_hz": 73.94,
+        "BSF_hz": 30.54,
+        "FTF_hz": 5.76
+      }
+    }
+  },
+  "organizer_constraints": {
+    "status": "partially_unspecified_for_track1",
+    "document_inspected": "Deep Learning Hackathon — Tracks.docx",
+    "mandated_general_rules": {
+      "seed": 42,
+      "fixed_splits": "Strictly mandatory; train on train split only; test split for final number only",
+      "baseline_comparison": "Mandatory to compare and beat baseline",
+      "reproducibility": "One-command end-to-end run",
+      "submission_deliverables": ["Code repository", "Short report (max 4 pages)", "Recorded demo"]
+    },
+    "track1_specific_mandate": {
+      "scoped_problem": "Classify a 1-D or spectrogram signal into its category.",
+      "organizer_dataset": null,
+      "organizer_fixed_split": null,
+      "organizer_mandatory_baseline": null,
+      "organizer_primary_metric": null,
+      "comment": "Unlike Tracks 2-5, Track 1 does not provide a pre-assigned dataset, split, baseline, or metric. These must be rigorously defined and justified by the team."
+    }
+  },
+  "recommended_design": {
+    "signal_window_design": {
+      "primary_recommendation": {
+        "duration_seconds": 1.0,
+        "samples": 64000,
+        "frequency_resolution_hz": 1.0,
+        "cycles_at_1500_rpm": { "shaft": 25.0, "BPFO": 76.8, "BPFI": 123.2, "cage": 9.6 },
+        "cycles_at_900_rpm": { "shaft": 15.0, "BPFO": 46.1, "BPFI": 73.9, "cage": 5.76 },
+        "windows_per_recording": 3,
+        "stride_samples": 64000,
+        "overlap_percentage": 0.0,
+        "coverage_per_recording_seconds": 3.0,
+        "safety_margin_samples": 63996
+      },
+      "secondary_candidate": {
+        "duration_seconds": 0.5,
+        "samples": 32000,
+        "frequency_resolution_hz": 2.0,
+        "cycles_at_1500_rpm": { "shaft": 12.5, "BPFO": 38.4, "BPFI": 61.6, "cage": 4.8 },
+        "cycles_at_900_rpm": { "shaft": 7.5, "BPFO": 23.0, "BPFI": 37.0, "cage": 2.88 },
+        "windows_per_recording": 7,
+        "stride_samples": 32000,
+        "overlap_percentage": 0.0,
+        "coverage_per_recording_seconds": 3.5,
+        "safety_margin_samples": 31996
+      }
+    },
+    "time_axis_policy": {
+      "method": "discrete_sample_indexing",
+      "resampling_required": false,
+      "rationale": "Hardware acquisition clock is 64 kHz with mean dt = 15.625 microseconds. Timestamp differences in HostService raster reflect host OS software polling jitter. Direct sample indexing avoids interpolating high-frequency signals and prevents interpolation noise.",
+      "boundary_policy": "Deterministic extraction of fixed-length non-overlapping windows starting at index 0. Any samples beyond the windowing budget (including duration outliers in KI16) are truncated."
+    },
+    "windowing_overlap_policy": {
+      "train_overlap_percentage": 0.0,
+      "validation_overlap_percentage": 0.0,
+      "test_overlap_percentage": 0.0,
+      "rationale": "Strict zero overlap across all partitions. Test and validation windows must represent disjoint physical segments; high overlap inflates sample count and creates correlated evaluation windows. The bearing remains the true independent experimental unit."
+    },
+    "normalization_policy": {
+      "strategy": "training_only_global_zscore",
+      "formula": "x_norm = (x - mean_train) / std_train",
+      "leakage_prevention": "Mean and standard deviation are strictly computed across the training split windows. Validation and test sets use training statistics without updating them.",
+      "optional_dc_centering": "Subtract per-window mean (x - mean_window) prior to global scaling to eliminate spurious accelerometer electronic DC bias."
+    },
+    "augmentation_policy": {
+      "status": "disabled_for_baseline",
+      "recommended_ablation_methods": [
+        { "name": "random_phase_shift", "description": "Circular time shift or random start offset within window", "justification": "Phase invariance of continuous rotating machinery" },
+        { "name": "amplitude_jitter", "description": "Uniform scaling by [0.95, 1.05]", "justification": "Simulates sensor sensitivity variations and mounting torque changes" },
+        { "name": "gaussian_noise", "description": "Additive white noise at 25-30 dB SNR (std ~ 0.01)", "justification": "Simulates background plant acoustic and electrical noise" }
+      ],
+      "forbidden_augmentations": [
+        "time_reversal (violates causal impact-decay physics)",
+        "arbitrary_speed_pitch_scaling (breaks kinematic relationship with known rpm)",
+        "cross_class_mixup (creates physically impossible hybrid bearing states)"
+      ]
+    },
+    "candidate_bearing_split": {
+      "total_bearings": 16,
+      "train_bearings": ["K001", "K002", "K003", "K004", "KA04", "KA16", "KA30", "KI04", "KI16", "KI18"],
+      "validation_bearings": ["K005", "KA15", "KI21"],
+      "test_bearings": ["K006", "KA22", "KI14"],
+      "class_distribution": {
+        "train": { "healthy": 4, "outer_damage": 3, "inner_damage": 3, "total": 10 },
+        "validation": { "healthy": 1, "outer_damage": 1, "inner_damage": 1, "total": 3 },
+        "test": { "healthy": 1, "outer_damage": 1, "inner_damage": 1, "total": 3 }
+      },
+      "damage_mode_balance": {
+        "train": {
+          "outer": ["KA04 (fatigue pitting, ext 1)", "KA16 (fatigue pitting, ext 2)", "KA30 (plastic indentation, ext 1)"],
+          "inner": ["KI04 (fatigue pitting, ext 1)", "KI16 (fatigue pitting, ext 3, long recordings)", "KI18 (fatigue pitting, ext 2)"]
+        },
+        "validation": {
+          "outer": ["KA15 (plastic indentation, ext 1)"],
+          "inner": ["KI21 (fatigue pitting, ext 1)"]
+        },
+        "test": {
+          "outer": ["KA22 (fatigue pitting, ext 1)"],
+          "inner": ["KI14 (fatigue pitting, ext 1)"]
+        }
+      },
+      "defense": "Strict bearing-level partitioning prevents data leakage. Validation and test sets achieve exact 1:1:1 class balance. Damage types (fatigue and plastic deformation) are represented in all splits. Outlier bearing KI16 is placed in training to train robustness without compromising evaluation integrity."
+    },
+    "operating_conditions_policy": {
+      "primary_task_treatment": "All 4 operating conditions (N15_M07_F10, N09_M07_F10, N15_M01_F10, N15_M07_F04) are equally represented in train, validation, and test (25% of windows each).",
+      "robustness_ablation": "Secondary leave-one-condition-out experiment (e.g. train on 3 conditions, evaluate on 900 RPM condition N09_M07_F10) to assess cross-operational domain generalization.",
+      "target_status": "Environmental nuisance variable, not a classification target."
+    },
+    "window_counts_and_compute": {
+      "policy_1s": {
+        "duration_s": 1.0,
+        "windows_per_recording": 3,
+        "windows_per_bearing": 240,
+        "total_windows": 3840,
+        "train_windows": 2400,
+        "validation_windows": 720,
+        "test_windows": 720,
+        "class_breakdown": {
+          "healthy": 1440,
+          "outer_damage": 1200,
+          "inner_damage": 1200
+        },
+        "raw_storage_mb": 983.0,
+        "batches_per_epoch_bs32": 75,
+        "estimated_epoch_time_seconds": 3.0
+      },
+      "policy_0_5s": {
+        "duration_s": 0.5,
+        "windows_per_recording": 7,
+        "windows_per_bearing": 560,
+        "total_windows": 8960,
+        "train_windows": 5600,
+        "validation_windows": 1680,
+        "test_windows": 1680,
+        "class_breakdown": {
+          "healthy": 3360,
+          "outer_damage": 2800,
+          "inner_damage": 2800
+        },
+        "raw_storage_mb": 1146.9,
+        "batches_per_epoch_bs32": 175,
+        "estimated_epoch_time_seconds": 6.0
+      }
+    },
+    "stft_recommendations": {
+      "current_parameters": { "n_fft": 256, "hop_length": 64 },
+      "current_flaws": [
+        "Frequency resolution is 250 Hz (64000/256). All bearing fault characteristic frequencies (46-123 Hz) and shaft frequencies (15-25 Hz) collapse into bin 0.",
+        "Hop length of 64 generates 1000 time frames per second (1.0 ms temporal step), creating excessive temporal frames and memory overhead while failing to resolve frequency."
+      ],
+      "recommended_parameters_for_1s": {
+        "n_fft": 2048,
+        "hop_length": 512,
+        "frequency_resolution_hz": 31.25,
+        "time_step_ms": 8.0,
+        "spectrogram_shape": [1025, 125],
+        "rationale": "31.25 Hz resolution separates BPFO (76.8 Hz) and BPFI (123.2 Hz) at 1500 RPM, and isolates shaft harmonics. 8 ms time step easily captures load zone transits (40 ms shaft period)."
+      },
+      "recommended_parameters_for_0_5s": {
+        "n_fft": 1024,
+        "hop_length": 256,
+        "frequency_resolution_hz": 62.5,
+        "time_step_ms": 4.0,
+        "spectrogram_shape": [513, 125],
+        "rationale": "Compact 513x125 2-D representation, fast computation, 62.5 Hz frequency resolution isolates fault fundamental frequencies."
+      }
+    },
+    "manifest_schema": {
+      "fields": [
+        "window_id",
+        "path",
+        "label",
+        "label_id",
+        "split",
+        "bearing_id",
+        "archive",
+        "mat_path",
+        "operating_condition",
+        "speed_rpm",
+        "load_torque_nm",
+        "radial_force_n",
+        "measurement_id",
+        "window_index",
+        "start_sample",
+        "end_sample",
+        "start_time_s",
+        "end_time_s",
+        "sampling_rate_hz",
+        "damage_location",
+        "damage_mode",
+        "damage_extent"
+      ]
+    },
+    "primary_metric_recommendation": {
+      "metric": "macro_f1",
+      "rationale": "Evaluation partitions (Validation and Test) have balanced 1:1:1 bearing representation. Macro-F1 treats all three diagnostic categories (Healthy, Outer-ring fault, Inner-ring fault) with equal importance, preventing majority-class dominance and providing a clear single leaderboard number."
+    }
+  },
+  "open_decisions_for_review": [
+    "Confirm 1.0 s (64,000 samples, 3 windows/file) vs 0.5 s (32,000 samples, 7 windows/file) as the primary input duration.",
+    "Approve the candidate 10/3/3 bearing-disjoint partition.",
+    "Formally adopt Macro-F1 as the primary Track 1 benchmark metric.",
+    "Approve updating model STFT parameters in configs/config.yaml (e.g. n_fft=2048, hop_length=512 for 1.0s or n_fft=1024, hop_length=256 for 0.5s) to replace the unphysical 256/64 values.",
+    "Define the official baseline architecture (e.g. standard 1D-ResNet or 1D-CNN) since the organizer material does not specify a Track 1 baseline."
+  ]
+}

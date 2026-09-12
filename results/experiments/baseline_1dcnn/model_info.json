@@ -1,0 +1,8 @@
+{
+  "display_name": "Baseline 1-D CNN",
+  "parameter_count": 3971,
+  "model_size_kb": 15.51171875,
+  "training_time_s": 111.70692205429077,
+  "epochs_trained": 8,
+  "checkpoint_path": "results/checkpoints/baseline_1dcnn.pt"
+}

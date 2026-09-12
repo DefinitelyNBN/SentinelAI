@@ -1,0 +1,115 @@
+{
+  "integrity": {
+    "checks_passed": 12,
+    "checks_failed": 0,
+    "bearings_verified": [
+      "K001",
+      "K002",
+      "K003",
+      "K004",
+      "K005",
+      "K006",
+      "KA04",
+      "KA15",
+      "KA16",
+      "KA22",
+      "KA30",
+      "KI04",
+      "KI14",
+      "KI16",
+      "KI18",
+      "KI21"
+    ],
+    "total_windows": 5101,
+    "unique_mat_files": 1280,
+    "unique_bearings": 16
+  },
+  "statistics": {
+    "total_windows": 5101,
+    "by_split": {
+      "train": 3191,
+      "validation": 955,
+      "test": 955
+    },
+    "by_class": {
+      "healthy": 1918,
+      "outer_ring": 1589,
+      "inner_ring": 1594
+    },
+    "by_bearing": {
+      "K001": 320,
+      "K002": 318,
+      "K003": 320,
+      "K004": 320,
+      "K005": 320,
+      "K006": 320,
+      "KA04": 319,
+      "KA15": 317,
+      "KA16": 319,
+      "KA22": 315,
+      "KA30": 319,
+      "KI04": 320,
+      "KI14": 320,
+      "KI16": 319,
+      "KI18": 317,
+      "KI21": 318
+    },
+    "by_operating_condition": {
+      "N09_M07_F10": 1276,
+      "N15_M01_F10": 1276,
+      "N15_M07_F04": 1273,
+      "N15_M07_F10": 1276
+    },
+    "class_by_split": {
+      "train": {
+        "healthy": 1278,
+        "outer_ring": 957,
+        "inner_ring": 956
+      },
+      "validation": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      },
+      "test": {
+        "healthy": 320,
+        "outer_ring": 315,
+        "inner_ring": 320
+      }
+    },
+    "condition_by_split": {
+      "train": {
+        "N09_M07_F10": 799,
+        "N15_M01_F10": 798,
+        "N15_M07_F04": 796,
+        "N15_M07_F10": 798
+      },
+      "validation": {
+        "N09_M07_F10": 238,
+        "N15_M01_F10": 239,
+        "N15_M07_F04": 240,
+        "N15_M07_F10": 238
+      },
+      "test": {
+        "N09_M07_F10": 239,
+        "N15_M01_F10": 239,
+        "N15_M07_F04": 237,
+        "N15_M07_F10": 240
+      }
+    },
+    "recordings_by_split": {
+      "train": 800,
+      "validation": 240,
+      "test": 240
+    },
+    "avg_windows_per_recording": 3.99,
+    "avg_windows_per_bearing": 318.81
+  },
+  "norm_stats": {
+    "mean": 0.008097140821158423,
+    "std": 0.3537545934612981,
+    "n_samples": 204224000,
+    "n_windows": 3191
+  },
+  "manifest_sha256": "71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf"
+}

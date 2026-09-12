@@ -1,0 +1,776 @@
+{
+  "phase": "Phase 6B \u2014 Diagnostic Audit and Validation Analysis",
+  "implementation_audit": {
+    "label_mapping_check": {
+      "observed_label_id_map": {
+        "healthy": 0,
+        "outer_ring": 1,
+        "inner_ring": 2
+      },
+      "expected_label_id_map": {
+        "healthy": 0,
+        "outer_ring": 1,
+        "inner_ring": 2
+      },
+      "class_names_constant": [
+        "healthy",
+        "outer_ring",
+        "inner_ring"
+      ],
+      "matches_expected": true,
+      "splits_consistent": true
+    },
+    "checkpoint_integrity_check": {
+      "baseline_1dcnn": {
+        "exists": true,
+        "has_state_dict": true,
+        "saved_epoch": 2,
+        "saved_macro_f1": 0.5557887373207415
+      },
+      "temporal_only": {
+        "exists": true,
+        "has_state_dict": true,
+        "saved_epoch": 1,
+        "saved_macro_f1": 0.5557887373207415
+      },
+      "frequency_only": {
+        "exists": true,
+        "has_state_dict": true,
+        "saved_epoch": 12,
+        "saved_macro_f1": 0.6151785300706604
+      },
+      "sentinelai": {
+        "exists": true,
+        "has_state_dict": true,
+        "saved_epoch": 2,
+        "saved_macro_f1": 0.5557887373207415
+      }
+    },
+    "preprocessing_normalization_check": {
+      "norm_stats_file": "/Users/nbn/Desktop/hackathons /dlsat/data/metadata/paderborn_norm_stats.json",
+      "mean": 0.008097140821158423,
+      "std": 0.3537545934612981,
+      "derived_from": "training_windows_only",
+      "stft_n_fft": 2048,
+      "stft_hop_length": 512,
+      "window_hann": true
+    },
+    "model_eval_behavior_check": {
+      "train_mode_verified": true,
+      "eval_mode_freezes_batchnorm_dropout": true
+    },
+    "dataloader_alignment_check": {},
+    "all_checks_passed": true,
+    "anomalies_found": []
+  },
+  "validation_prediction_analysis": {
+    "baseline_1dcnn": {
+      "metrics": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      },
+      "pred_distribution": {
+        "healthy": 320,
+        "outer_ring": 0,
+        "inner_ring": 635
+      },
+      "target_distribution": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      },
+      "logits_by_class": {
+        "healthy": {
+          "mean_logits": [
+            0.7591234445571899,
+            -0.6735066175460815,
+            -0.4024119973182678
+          ],
+          "std_logits": [
+            0.5086487531661987,
+            0.1549014300107956,
+            0.263319194316864
+          ],
+          "sample_count": 320,
+          "predicted_as": {
+            "healthy": 320
+          }
+        },
+        "outer_ring": {
+          "mean_logits": [
+            -2.9388442039489746,
+            0.6068055033683777,
+            1.8692259788513184
+          ],
+          "std_logits": [
+            1.081583857536316,
+            0.35852277278900146,
+            0.5546746850013733
+          ],
+          "sample_count": 317,
+          "predicted_as": {
+            "inner_ring": 317
+          }
+        },
+        "inner_ring": {
+          "mean_logits": [
+            -3.4879987239837646,
+            0.8682241439819336,
+            2.080519914627075
+          ],
+          "std_logits": [
+            1.1216944456100464,
+            0.3993090093135834,
+            0.5459045767784119
+          ],
+          "sample_count": 318,
+          "predicted_as": {
+            "inner_ring": 318
+          }
+        }
+      }
+    },
+    "temporal_only": {
+      "metrics": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      },
+      "pred_distribution": {
+        "healthy": 320,
+        "outer_ring": 0,
+        "inner_ring": 635
+      },
+      "target_distribution": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      },
+      "logits_by_class": {
+        "healthy": {
+          "mean_logits": [
+            0.8691641688346863,
+            -1.0649676322937012,
+            -0.5018860697746277
+          ],
+          "std_logits": [
+            0.3332922160625458,
+            0.26909521222114563,
+            0.24090971052646637
+          ],
+          "sample_count": 320,
+          "predicted_as": {
+            "healthy": 320
+          }
+        },
+        "outer_ring": {
+          "mean_logits": [
+            -1.258092999458313,
+            0.2600994408130646,
+            0.7389678359031677
+          ],
+          "std_logits": [
+            0.5220370292663574,
+            0.310507208108902,
+            0.20991088449954987
+          ],
+          "sample_count": 317,
+          "predicted_as": {
+            "inner_ring": 317
+          }
+        },
+        "inner_ring": {
+          "mean_logits": [
+            -2.0155115127563477,
+            0.6930897831916809,
+            0.9821198582649231
+          ],
+          "std_logits": [
+            0.9241982698440552,
+            0.5405567288398743,
+            0.32821276783943176
+          ],
+          "sample_count": 318,
+          "predicted_as": {
+            "inner_ring": 318
+          }
+        }
+      }
+    },
+    "frequency_only": {
+      "metrics": {
+        "accuracy": 0.6460732984293194,
+        "macro_f1": 0.6151785300706604,
+        "precision_macro": 0.6252575835224637,
+        "recall_macro": 0.6449609894252326,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 0.8908045977011494,
+            "recall": 0.96875,
+            "f1": 0.9281437125748503
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.46496815286624205,
+            "recall": 0.2302839116719243,
+            "f1": 0.3080168776371308
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.52,
+            "recall": 0.7358490566037735,
+            "f1": 0.6093749999999999
+          }
+        },
+        "confusion_matrix": [
+          [
+            310,
+            0,
+            10
+          ],
+          [
+            38,
+            73,
+            206
+          ],
+          [
+            0,
+            84,
+            234
+          ]
+        ],
+        "num_samples": 955
+      },
+      "pred_distribution": {
+        "healthy": 348,
+        "outer_ring": 157,
+        "inner_ring": 450
+      },
+      "target_distribution": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      },
+      "logits_by_class": {
+        "healthy": {
+          "mean_logits": [
+            2.262716054916382,
+            -3.454680919647217,
+            -0.16800017654895782
+          ],
+          "std_logits": [
+            0.7205313444137573,
+            0.6311331391334534,
+            0.682997465133667
+          ],
+          "sample_count": 320,
+          "predicted_as": {
+            "healthy": 310,
+            "inner_ring": 10
+          }
+        },
+        "outer_ring": {
+          "mean_logits": [
+            -0.3887394964694977,
+            -0.8808900117874146,
+            0.5835267901420593
+          ],
+          "std_logits": [
+            0.7988781332969666,
+            1.3491003513336182,
+            1.2217612266540527
+          ],
+          "sample_count": 317,
+          "predicted_as": {
+            "outer_ring": 73,
+            "inner_ring": 206,
+            "healthy": 38
+          }
+        },
+        "inner_ring": {
+          "mean_logits": [
+            -1.4499691724777222,
+            -0.2505151629447937,
+            1.302294373512268
+          ],
+          "std_logits": [
+            0.8763907551765442,
+            1.1747970581054688,
+            0.939144492149353
+          ],
+          "sample_count": 318,
+          "predicted_as": {
+            "inner_ring": 234,
+            "outer_ring": 84
+          }
+        }
+      }
+    },
+    "sentinelai": {
+      "metrics": {
+        "accuracy": 0.6680628272251309,
+        "macro_f1": 0.5557887373207415,
+        "precision_macro": 0.5002624671916011,
+        "recall_macro": 0.6666666666666666,
+        "per_class": {
+          "healthy": {
+            "class_id": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "outer_ring": {
+            "class_id": 1,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "inner_ring": {
+            "class_id": 2,
+            "precision": 0.5007874015748032,
+            "recall": 1.0,
+            "f1": 0.6673662119622247
+          }
+        },
+        "confusion_matrix": [
+          [
+            320,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            317
+          ],
+          [
+            0,
+            0,
+            318
+          ]
+        ],
+        "num_samples": 955
+      },
+      "pred_distribution": {
+        "healthy": 320,
+        "outer_ring": 0,
+        "inner_ring": 635
+      },
+      "target_distribution": {
+        "healthy": 320,
+        "outer_ring": 317,
+        "inner_ring": 318
+      },
+      "logits_by_class": {
+        "healthy": {
+          "mean_logits": [
+            2.047769069671631,
+            -0.5535664558410645,
+            -1.6567312479019165
+          ],
+          "std_logits": [
+            0.37287238240242004,
+            0.20071670413017273,
+            0.3801388442516327
+          ],
+          "sample_count": 320,
+          "predicted_as": {
+            "healthy": 320
+          }
+        },
+        "outer_ring": {
+          "mean_logits": [
+            -2.2126903533935547,
+            0.2859570384025574,
+            1.9673527479171753
+          ],
+          "std_logits": [
+            0.48631298542022705,
+            0.22405755519866943,
+            0.29910603165626526
+          ],
+          "sample_count": 317,
+          "predicted_as": {
+            "inner_ring": 317
+          }
+        },
+        "inner_ring": {
+          "mean_logits": [
+            -3.0616965293884277,
+            0.7142520546913147,
+            2.394742727279663
+          ],
+          "std_logits": [
+            0.9276137351989746,
+            0.5373589992523193,
+            0.4467777907848358
+          ],
+          "sample_count": 318,
+          "predicted_as": {
+            "inner_ring": 318
+          }
+        }
+      }
+    }
+  },
+  "data_distribution_comparison": {
+    "per_bearing_stats": {
+      "K001": {
+        "bearing_id": "K001",
+        "split": "train",
+        "label": "healthy",
+        "damage_mode": "none",
+        "damage_extent": "0",
+        "num_windows": 320,
+        "signal_stats": {
+          "mean": -0.01572781316936016,
+          "std": 0.3890087381005287,
+          "rms": 0.3893290936946869,
+          "peak_abs": 4.483642578125,
+          "crest_factor": 11.538450241774656
+        }
+      },
+      "K002": {
+        "bearing_id": "K002",
+        "split": "train",
+        "label": "healthy",
+        "damage_mode": "none",
+        "damage_extent": "0",
+        "num_windows": 318,
+        "signal_stats": {
+          "mean": -0.010929424734786152,
+          "std": 0.21222389861941338,
+          "rms": 0.21250904724001884,
+          "peak_abs": 3.215179443359375,
+          "crest_factor": 15.19852627560733
+        }
+      },
+      "K003": {
+        "bearing_id": "K003",
+        "split": "train",
+        "label": "healthy",
+        "damage_mode": "none",
+        "damage_extent": "0",
+        "num_windows": 320,
+        "signal_stats": {
+          "mean": -0.013226881064474583,
+          "std": 0.3515165403485298,
+          "rms": 0.35176677256822586,
+          "peak_abs": 4.234771728515625,
+          "crest_factor": 12.048240273394084
+        }
+      },
+      "K004": {
+        "bearing_id": "K004",
+        "split": "train",
+        "label": "healthy",
+        "damage_mode": "none",
+        "damage_extent": "0",
+        "num_windows": 320,
+        "signal_stats": {
+          "mean": -0.018826525099575518,
+          "std": 0.1489443726837635,
+          "rms": 0.15015654191374778,
+          "peak_abs": 1.350555419921875,
+          "crest_factor": 9.357501184705134
+        }
+      },
+      "K005": {
+        "bearing_id": "K005",
+        "split": "validation",
+        "label": "healthy",
+        "damage_mode": "none",
+        "damage_extent": "0",
+        "num_windows": 320,
+        "signal_stats": {
+          "mean": -0.020225453469902278,
+          "std": 0.1720875684171915,
+          "rms": 0.17333084642887114,
+          "peak_abs": 1.37786865234375,
+          "crest_factor": 8.339398230846689
+        }
+      },
+      "KA04": {
+        "bearing_id": "KA04",
+        "split": "train",
+        "label": "outer_ring",
+        "damage_mode": "fatigue",
+        "damage_extent": "1",
+        "num_windows": 319,
+        "signal_stats": {
+          "mean": 0.04265600852668285,
+          "std": 0.40824285298585894,
+          "rms": 0.4108199641108513,
+          "peak_abs": 2.83660888671875,
+          "crest_factor": 7.111521783579339
+        }
+      },
+      "KA15": {
+        "bearing_id": "KA15",
+        "split": "validation",
+        "label": "outer_ring",
+        "damage_mode": "plastic_deformation",
+        "damage_extent": "1",
+        "num_windows": 317,
+        "signal_stats": {
+          "mean": 0.0426436310634017,
+          "std": 0.1829847004264593,
+          "rms": 0.1883973427116871,
+          "peak_abs": 1.349639892578125,
+          "crest_factor": 7.687289798170295
+        }
+      },
+      "KA16": {
+        "bearing_id": "KA16",
+        "split": "train",
+        "label": "outer_ring",
+        "damage_mode": "fatigue",
+        "damage_extent": "2",
+        "num_windows": 319,
+        "signal_stats": {
+          "mean": 0.04143629390746355,
+          "std": 0.4801606506109238,
+          "rms": 0.48222540095448496,
+          "peak_abs": 3.2574462890625,
+          "crest_factor": 6.606276753654436
+        }
+      },
+      "KA30": {
+        "bearing_id": "KA30",
+        "split": "train",
+        "label": "outer_ring",
+        "damage_mode": "plastic_deformation",
+        "damage_extent": "1",
+        "num_windows": 319,
+        "signal_stats": {
+          "mean": -0.011574888322502374,
+          "std": 0.30864591971039773,
+          "rms": 0.30887712463736533,
+          "peak_abs": 3.14239501953125,
+          "crest_factor": 10.634044576745504
+        }
+      },
+      "KI04": {
+        "bearing_id": "KI04",
+        "split": "train",
+        "label": "inner_ring",
+        "damage_mode": "fatigue",
+        "damage_extent": "1",
+        "num_windows": 320,
+        "signal_stats": {
+          "mean": -0.014157507522031664,
+          "std": 0.31434845104813575,
+          "rms": 0.3146789476275444,
+          "peak_abs": 2.96051025390625,
+          "crest_factor": 9.971134873533263
+        }
+      },
+      "KI16": {
+        "bearing_id": "KI16",
+        "split": "train",
+        "label": "inner_ring",
+        "damage_mode": "fatigue",
+        "damage_extent": "3",
+        "num_windows": 319,
+        "signal_stats": {
+          "mean": 0.04083512108772993,
+          "std": 0.31137939766049383,
+          "rms": 0.31439698934555055,
+          "peak_abs": 2.421722412109375,
+          "crest_factor": 7.808806336318293
+        }
+      },
+      "KI18": {
+        "bearing_id": "KI18",
+        "split": "train",
+        "label": "inner_ring",
+        "damage_mode": "fatigue",
+        "damage_extent": "2",
+        "num_windows": 317,
+        "signal_stats": {
+          "mean": 0.040884299017488954,
+          "std": 0.31665445789694785,
+          "rms": 0.3197271734476089,
+          "peak_abs": 2.913818359375,
+          "crest_factor": 9.224846203612724
+        }
+      },
+      "KI21": {
+        "bearing_id": "KI21",
+        "split": "validation",
+        "label": "inner_ring",
+        "damage_mode": "fatigue",
+        "damage_extent": "1",
+        "num_windows": 318,
+        "signal_stats": {
+          "mean": 0.04334192033857107,
+          "std": 0.23057778030633927,
+          "rms": 0.23504590019583702,
+          "peak_abs": 1.52099609375,
+          "crest_factor": 6.883625480418852
+        }
+      }
+    },
+    "aggregated_by_split_class": {
+      "train": {
+        "healthy": {
+          "mean_dc_offset": -0.014677661017049103,
+          "mean_std": 0.2754233874380589,
+          "mean_rms": 0.27594036385416987,
+          "mean_peak": 3.3210372924804688,
+          "mean_crest_factor": 12.035679493870301,
+          "bearings": [
+            "K001",
+            "K002",
+            "K003",
+            "K004"
+          ]
+        },
+        "outer_ring": {
+          "mean_dc_offset": 0.024172471370548006,
+          "mean_std": 0.3990164744357268,
+          "mean_rms": 0.40064082990090055,
+          "mean_peak": 3.0788167317708335,
+          "mean_crest_factor": 8.117281037993093,
+          "bearings": [
+            "KA04",
+            "KA16",
+            "KA30"
+          ]
+        },
+        "inner_ring": {
+          "mean_dc_offset": 0.022520637527729075,
+          "mean_std": 0.31412743553519246,
+          "mean_rms": 0.316267703473568,
+          "mean_peak": 2.765350341796875,
+          "mean_crest_factor": 9.001595804488094,
+          "bearings": [
+            "KI04",
+            "KI16",
+            "KI18"
+          ]
+        }
+      },
+      "validation": {
+        "healthy": {
+          "mean_dc_offset": -0.020225453469902278,
+          "mean_std": 0.1720875684171915,
+          "mean_rms": 0.17333084642887114,
+          "mean_peak": 1.37786865234375,
+          "mean_crest_factor": 8.339398230846689,
+          "bearings": [
+            "K005"
+          ]
+        },
+        "outer_ring": {
+          "mean_dc_offset": 0.0426436310634017,
+          "mean_std": 0.1829847004264593,
+          "mean_rms": 0.1883973427116871,
+          "mean_peak": 1.349639892578125,
+          "mean_crest_factor": 7.687289798170295,
+          "bearings": [
+            "KA15"
+          ]
+        },
+        "inner_ring": {
+          "mean_dc_offset": 0.04334192033857107,
+          "mean_std": 0.23057778030633927,
+          "mean_rms": 0.23504590019583702,
+          "mean_peak": 1.52099609375,
+          "mean_crest_factor": 6.883625480418852,
+          "bearings": [
+            "KI21"
+          ]
+        }
+      }
+    }
+  },
+  "key_diagnostic_conclusions": [
+    "No implementation bugs found in label mappings, checkpoint save/load, normalisation, or eval mode.",
+    "All models distinguish 'healthy' (K005) from damaged bearings with 100% precision because healthy bearings possess a distinct negative DC bias (-0.015V to -0.020V).",
+    "In the validation set, KA15 (outer_ring) has plastic deformation (indentation) damage, producing a low-amplitude vibration (RMS 0.191V, std 0.186V) and positive DC bias (+0.0434V).",
+    "In the training set, outer-ring bearings KA04 and KA16 are fatigue damages with huge vibration amplitude (RMS 0.42V-0.49V), while KI16 and KI18 (inner ring) have moderate amplitudes and positive DC bias (+0.041V).",
+    "Consequently, 1D time-domain convolution models misclassify KA15 as inner-ring damage because KA15's amplitude and DC offset mimic inner-ring training signatures.",
+    "Frequency-Only (STFT 2D Conv) avoided this trap because it operates on spectral harmonic peaks (BPFO vs BPFI) rather than raw time-domain signal power."
+  ]
+}

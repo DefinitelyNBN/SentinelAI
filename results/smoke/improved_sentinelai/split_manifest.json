@@ -1,0 +1,48 @@
+{
+  "train": {
+    "bearings": [
+      "K001",
+      "K002",
+      "K003",
+      "K004",
+      "KA04",
+      "KA16",
+      "KA30",
+      "KI04",
+      "KI16",
+      "KI18"
+    ],
+    "windows": 3191,
+    "windows_by_class": {
+      "healthy": 1278,
+      "outer_ring": 957,
+      "inner_ring": 956
+    }
+  },
+  "validation": {
+    "bearings": [
+      "K005",
+      "KA15",
+      "KI21"
+    ],
+    "windows": 955,
+    "windows_by_class": {
+      "healthy": 320,
+      "outer_ring": 317,
+      "inner_ring": 318
+    }
+  },
+  "test": {
+    "bearings": [
+      "K006",
+      "KA22",
+      "KI14"
+    ],
+    "windows": 955,
+    "windows_by_class": {
+      "healthy": 320,
+      "outer_ring": 315,
+      "inner_ring": 320
+    }
+  }
+}

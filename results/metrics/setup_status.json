@@ -1,0 +1,14 @@
+{
+  "status": "blocked_by_missing_organizer_information",
+  "missing": [
+    "dataset.name",
+    "dataset.subtrack",
+    "dataset.manifest",
+    "dataset.representation",
+    "dataset.num_classes",
+    "official_baseline.name",
+    "official_baseline.implementation",
+    "primary_metric"
+  ],
+  "message": "The DOCX contains no Track 1 dataset, baseline, or metric. Populate config.yaml from the dataset brief."
+}

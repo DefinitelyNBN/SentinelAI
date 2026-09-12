@@ -1,0 +1,231 @@
+{
+  "Official_Val": {
+    "held_out_bearings": {
+      "healthy": "K005",
+      "outer_ring": "KA15",
+      "inner_ring": "KI21"
+    },
+    "metrics": {
+      "accuracy": 0.6460732984293194,
+      "macro_f1": 0.6151785300706604,
+      "precision_macro": 0.6252575835224637,
+      "recall_macro": 0.6449609894252326,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 0.8908045977011494,
+          "recall": 0.96875,
+          "f1": 0.9281437125748503
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.46496815286624205,
+          "recall": 0.2302839116719243,
+          "f1": 0.3080168776371308
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.52,
+          "recall": 0.7358490566037735,
+          "f1": 0.6093749999999999
+        }
+      },
+      "confusion_matrix": [
+        [
+          310,
+          0,
+          10
+        ],
+        [
+          38,
+          73,
+          206
+        ],
+        [
+          0,
+          84,
+          234
+        ]
+      ],
+      "num_samples": 955
+    },
+    "note": "Official validation split evaluated during Phase 6"
+  },
+  "Split_A": {
+    "held_out_bearings": {
+      "healthy": "K001",
+      "outer_ring": "KA04",
+      "inner_ring": "KI04"
+    },
+    "sample_counts": {
+      "healthy": 320,
+      "outer_ring": 319,
+      "inner_ring": 320
+    },
+    "metrics": {
+      "accuracy": 0.8665,
+      "macro_f1": 0.8562,
+      "precision_macro": 0.8647,
+      "recall_macro": 0.8667,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 0.804,
+          "recall": 1.0,
+          "f1": 0.8914
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.8645,
+          "recall": 1.0,
+          "f1": 0.9273
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 1.0,
+          "recall": 0.6,
+          "f1": 0.75
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          0,
+          319,
+          0
+        ],
+        [
+          78,
+          50,
+          192
+        ]
+      ],
+      "num_samples": 959
+    },
+    "note": "Evaluated with frozen Frequency-Only v1 checkpoint (trained on original train split)"
+  },
+  "Split_B": {
+    "held_out_bearings": {
+      "healthy": "K002",
+      "outer_ring": "KA16",
+      "inner_ring": "KI16"
+    },
+    "sample_counts": {
+      "healthy": 318,
+      "outer_ring": 319,
+      "inner_ring": 319
+    },
+    "metrics": {
+      "accuracy": 0.9749,
+      "macro_f1": 0.9748,
+      "precision_macro": 0.976,
+      "recall_macro": 0.9748,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 1.0,
+          "recall": 0.9245,
+          "f1": 0.9608
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 0.93,
+          "recall": 1.0,
+          "f1": 0.9637
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          294,
+          24,
+          0
+        ],
+        [
+          0,
+          319,
+          0
+        ],
+        [
+          0,
+          0,
+          319
+        ]
+      ],
+      "num_samples": 956
+    },
+    "note": "Evaluated with frozen Frequency-Only v1 checkpoint (trained on original train split)"
+  },
+  "Split_C": {
+    "held_out_bearings": {
+      "healthy": "K003",
+      "outer_ring": "KA30",
+      "inner_ring": "KI18"
+    },
+    "sample_counts": {
+      "healthy": 320,
+      "outer_ring": 319,
+      "inner_ring": 317
+    },
+    "metrics": {
+      "accuracy": 0.7782,
+      "macro_f1": 0.7424,
+      "precision_macro": 0.8654,
+      "recall_macro": 0.7785,
+      "per_class": {
+        "healthy": {
+          "class_id": 0,
+          "precision": 0.8696,
+          "recall": 1.0,
+          "f1": 0.9302
+        },
+        "outer_ring": {
+          "class_id": 1,
+          "precision": 1.0,
+          "recall": 0.3354,
+          "f1": 0.5023
+        },
+        "inner_ring": {
+          "class_id": 2,
+          "precision": 0.659,
+          "recall": 1.0,
+          "f1": 0.7945
+        }
+      },
+      "confusion_matrix": [
+        [
+          320,
+          0,
+          0
+        ],
+        [
+          48,
+          107,
+          164
+        ],
+        [
+          0,
+          0,
+          317
+        ]
+      ],
+      "num_samples": 956
+    },
+    "note": "Evaluated with frozen Frequency-Only v1 checkpoint (trained on original train split)"
+  },
+  "alternative_splits_summary": {
+    "mean_macro_f1": 0.8578,
+    "std_macro_f1": 0.095,
+    "min_macro_f1": 0.7424,
+    "max_macro_f1": 0.9748
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "display_name": "Temporal Only (1-D Conv)",
+  "parameter_count": 19203,
+  "model_size_kb": 75.77734375,
+  "training_time_s": 254.29381203651428,
+  "epochs_trained": 7,
+  "checkpoint_path": "results/checkpoints/temporal_only.pt"
+}
