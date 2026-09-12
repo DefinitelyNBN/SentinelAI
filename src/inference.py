@@ -41,20 +41,28 @@ def load_config(path: str | Path = "configs/config.yaml") -> dict:
 
 
 def get_best_checkpoint(cfg: dict, project_root: str | Path = ".") -> Path:
-    """Return path to the best available checkpoint using the priority list in config.
+    """Return the validation-selected production checkpoint.
+
+    FrequencyOnly v1 is the final validation-selected model.  Historical
+    checkpoints (including MSRF-v2) remain loadable by passing their path
+    directly to :func:`load_model`, but are intentionally excluded from this
+    automatic resolver.
 
     Falls back through:
-        1. results/checkpoints/msrf_v2_best.pt
-        2. results/checkpoints/frequency_only.pt
-        3. results/checkpoints/sentinelai.pt
+        1. results/checkpoints/frequency_only.pt
+        2. any configured non-historical fallback checkpoints
     Raises FileNotFoundError if none exist.
     """
     root = Path(project_root)
-    priority = cfg.get("evaluation", {}).get("checkpoint_priority", [
-        "results/checkpoints/msrf_v2_best.pt",
-        "results/checkpoints/frequency_only.pt",
-        "results/checkpoints/sentinelai.pt",
-    ])
+    final_checkpoint = "results/checkpoints/frequency_only.pt"
+    configured_priority = cfg.get("evaluation", {}).get("checkpoint_priority", [])
+    # Do not allow a historical MSRF-v2 entry in configuration to become the
+    # automatic current-model selection.  It can still be loaded explicitly.
+    priority = [final_checkpoint] + [
+        path
+        for path in configured_priority
+        if path != final_checkpoint and "msrf" not in Path(path).name.lower()
+    ]
     for rel_path in priority:
         p = root / rel_path
         if p.exists():
@@ -145,7 +153,11 @@ def _instantiate_model(model_name: str, cfg: dict) -> torch.nn.Module:
         return ImprovedSentinelAI(cfg, fusion)
     if "msrf_v2" in name_lower or "sentinelai_msrf_v2" in name_lower:
         return SentinelAI_MSRF_v2(cfg, ablation="full")
-    elif "frequency_only" in name_lower or "frequencyonly" in name_lower:
+    elif (
+        "frequency_only" in name_lower
+        or "frequencyonly" in name_lower
+        or "frequency only" in name_lower
+    ):
         return FrequencyOnly(cfg)
     elif "temporal_only" in name_lower or "temporalonly" in name_lower:
         return TemporalOnly(cfg)

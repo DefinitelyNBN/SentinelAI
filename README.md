@@ -68,8 +68,8 @@ These are historical experiments, not claims for the new compact architecture:
 | Temporal-only | 0.5558 | 0.5567 | 0.6702 |
 | Frequency-only (selected by validation) | 0.6152 | 0.6641 | 0.6743 |
 | Original SentinelAI | 0.5558 | 0.8211 | 0.8335 |
-| MSRF-v2 | 0.3581 | not evaluated | — |
+| Historical MSRF-v2 (validation-only experiment) | 0.3581 | not evaluated | — |
 
-The original SentinelAI's high post-selection test result was not selected because its validation result was poor. The diagnostic audit found no label, normalization, checkpoint, DataLoader, BatchNorm, or Dropout defect. Its validation failure is consistent with bearing/domain shift: KA15 is a low-energy plastic outer-ring case unlike several high-energy training outer-ring fatigue cases and has statistics similar to the held-out inner bearing KI21. Consequently, the improved model is not claimed to outperform any baseline until the validation-first run completes.
+The MSRF-v2 validation value is retained solely as a historical result, verified in `results/experiments/msrf_v2/phase7_msrf_v2_full_results.json`; it is not the current-model selection. The original SentinelAI's high post-selection test result was not selected because its validation result was poor. The diagnostic audit found no label, normalization, checkpoint, DataLoader, BatchNorm, or Dropout defect. Its validation failure is consistent with bearing/domain shift: KA15 is a low-energy plastic outer-ring case unlike several high-energy training outer-ring fatigue cases and has statistics similar to the held-out inner bearing KI21. The completed validation-first comparison did not replace the selected Frequency-only v1 model.
 
 Known limitations: limited bearing identities, laboratory operating conditions, three-class formulation, domain shift, no calibration, and no production/edge deployment validation. Grad-CAM and gradient saliency show model sensitivity, not causal mechanical proof.

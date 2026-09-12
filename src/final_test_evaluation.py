@@ -66,6 +66,9 @@ print("NO_TEST_TUNING = PASS")
 # 2. Setup Device & Load Frozen Model
 with open(CONFIG_PATH) as f:
     cfg = yaml.safe_load(f)
+assert cfg["seed"] == 42, f"Unexpected evaluation seed: {cfg['seed']}"
+torch.manual_seed(cfg["seed"])
+np.random.seed(cfg["seed"])
 
 if torch.backends.mps.is_available():
     dev = torch.device("mps")
@@ -79,6 +82,8 @@ model = FrequencyOnly(cfg).to(dev)
 ckpt = torch.load(CHECKPOINT_PATH, map_location=dev, weights_only=False)
 model.load_state_dict(ckpt["state_dict"])
 model.eval()
+model_name = ckpt["model_name"]
+parameter_count = sum(p.numel() for p in model.parameters())
 
 # 3. Build Test Dataset & DataLoader
 from src.paderborn_dataset import PaderbornDataset
@@ -123,17 +128,18 @@ for i in range(3):
         ax.text(j, i, str(cm[i, j]), ha="center", va="center",
                 color="white" if cm[i, j] > cm.max() / 2 else "black", fontweight="bold")
 plt.tight_layout()
-cm_path = FIG_DIR / "final_test_confusion_matrix.png"
+cm_path = FIG_DIR / "final_confusion_matrix.png"
 plt.savefig(cm_path, dpi=200)
 plt.close()
 print(f"\nSaved confusion matrix plot: {cm_path}")
 
-# 6. Load Pre-recorded Phase 6 Model Results for Context
+# 6. Load the mandatory baseline's pre-recorded result for comparison only.
 with open(PROJECT_ROOT / "results" / "metrics" / "test_evaluation.json") as f:
     prerecorded_test = json.load(f)["test_results"]
 
-with open(PROJECT_ROOT / "results" / "metrics" / "validation_experiments.json") as f:
-    prerecorded_val = json.load(f)["models"]
+baseline_macro_f1 = prerecorded_test["baseline_1dcnn"]["macro_f1"]
+baseline_delta = float(test_metrics["macro_f1"] - baseline_macro_f1)
+baseline_pct_improvement = float(baseline_delta / baseline_macro_f1 * 100)
 
 # 7. Write results/final_test_results.json
 final_json_data = {
@@ -141,8 +147,16 @@ final_json_data = {
     "selected_model": "Frequency-Only v1",
     "selection_criterion": "Highest official validation Macro-F1 (0.6152)",
     "official_validation_macro_f1": 0.6152,
-    "checkpoint_path": str(CHECKPOINT_PATH),
+    "checkpoint_path": "results/checkpoints/frequency_only.pt",
+    "checkpoint_resolved_path": str(CHECKPOINT_PATH),
+    "model_name": model_name,
+    "model_class": type(model).__name__,
+    "parameter_count": parameter_count,
+    "seed": cfg["seed"],
+    "checkpoint_retrained": False,
+    "manifest_sha256": sha,
     "official_test_bearings": ["K006", "KA22", "KI14"],
+    "class_mapping": {"healthy": 0, "outer_ring": 1, "inner_ring": 2},
     "total_test_samples": len(test_ds),
     "samples_per_class": {
         "healthy": 320,
@@ -167,31 +181,11 @@ final_json_data = {
     },
     "test_metrics": test_metrics,
     "baseline_comparison": {
-        "baseline_test_macro_f1": prerecorded_test["baseline_1dcnn"]["macro_f1"],
+        "baseline_name": "Baseline 1D CNN",
+        "baseline_test_macro_f1": baseline_macro_f1,
         "frequency_only_test_macro_f1": test_metrics["macro_f1"],
-        "delta_macro_f1": float(test_metrics["macro_f1"] - prerecorded_test["baseline_1dcnn"]["macro_f1"])
-    },
-    "comparison_table": {
-        "Baseline 1D CNN": {
-            "validation_macro_f1": prerecorded_val["baseline_1dcnn"]["validation"]["macro_f1"],
-            "test_accuracy": prerecorded_test["baseline_1dcnn"]["accuracy"],
-            "test_macro_f1": prerecorded_test["baseline_1dcnn"]["macro_f1"]
-        },
-        "Temporal-Only": {
-            "validation_macro_f1": prerecorded_val["temporal_only"]["validation"]["macro_f1"],
-            "test_accuracy": prerecorded_test["temporal_only"]["accuracy"],
-            "test_macro_f1": prerecorded_test["temporal_only"]["macro_f1"]
-        },
-        "Frequency-Only v1": {
-            "validation_macro_f1": 0.6152,
-            "test_accuracy": test_metrics["accuracy"],
-            "test_macro_f1": test_metrics["macro_f1"]
-        },
-        "Full SentinelAI": {
-            "validation_macro_f1": prerecorded_val["sentinelai"]["validation"]["macro_f1"],
-            "test_accuracy": prerecorded_test["sentinelai"]["accuracy"],
-            "test_macro_f1": prerecorded_test["sentinelai"]["macro_f1"]
-        }
+        "absolute_improvement_macro_f1": baseline_delta,
+        "percentage_improvement_over_baseline": baseline_pct_improvement
     }
 }
 
@@ -200,7 +194,6 @@ with open(PROJECT_ROOT / "results" / "final_test_results.json", "w") as f:
 print("Saved: results/final_test_results.json")
 
 # 8. Write results/final_test_results.md
-baseline_delta = test_metrics["macro_f1"] - prerecorded_test["baseline_1dcnn"]["macro_f1"]
 
 md_content = f"""# Final Frozen Test Evaluation: SentinelAI
 
@@ -217,6 +210,11 @@ md_content = f"""# Final Frozen Test Evaluation: SentinelAI
 - **Selection Criterion**: **Highest official validation Macro-F1 (0.6152)**
 - **Official Validation Macro-F1**: **0.6152**
 - **Checkpoint**: `results/checkpoints/frequency_only.pt`
+- **Checkpoint model name / class**: `{model_name}` / `{type(model).__name__}`
+- **Trainable parameters**: {parameter_count:,}
+- **Seed**: {cfg['seed']}
+- **Manifest SHA-256**: `{sha}`
+- **Class mapping**: Healthy = 0, Outer Ring = 1, Inner Ring = 2
 - **Official Test Bearings**: `K006` (Healthy), `KA22` (Real Outer Ring), `KI14` (Real Inner Ring)
 - **Test Set Size**: 955 windows (Healthy: 320, Outer Ring: 315, Inner Ring: 320)
 
@@ -268,30 +266,15 @@ True Inner Ring           84                   68                     168
 
 ---
 
-## 4. Benchmark Comparison Across Architectures
+## 4. Mandatory Baseline Comparison
 
-The following table presents the final comparison across all benchmarked architectures. For non-selected models, values reflect the frozen Phase 6 pre-recorded evaluations:
+| Model | Test Macro-F1 |
+|---|---:|
+| Baseline 1D CNN | {baseline_macro_f1:.4f} |
+| Frequency-Only v1 (frozen selected model) | {test_metrics['macro_f1']:.4f} |
 
-| Model | Validation Macro-F1 | Test Accuracy | Test Macro-F1 |
-|---|---:|---:|---:|
-| **Baseline 1D CNN** | 0.5558 | 0.6702 | 0.5567 |
-| **Temporal-Only** | 0.5558 | 0.6702 | 0.5567 |
-| **Frequency-Only v1** *(Selected)* | **0.6152** | **0.6743** | **0.6641** |
-| **Full SentinelAI** | 0.5558 | 0.8335 | 0.8211 |
-
-### Post-Selection Baseline Improvement:
-Delta Test Macro-F1 = Macro-F1(Freq-Only v1) - Macro-F1(Baseline) = 0.6641 - 0.5567 = +0.1074 (+10.74%)
-
----
-
-## 5. Scientific Findings & Discussion
-
-1. **Superior Generalization over 1-D Baselines**:
-   - Both the Baseline 1D CNN and Temporal-Only models collapsed to zero outer-ring recall on the test set (predicting 0 outer-ring windows on `KA22`), exactly replicating their failure on validation bearing `KA15`.
-   - Frequency-Only v1 successfully identifies outer-ring damage on the locked test set (Recall = 49.52%, 156/315 windows), demonstrating genuine feature extraction capability across physically held-out bearing units.
-2. **Post-Selection Context with Full SentinelAI**:
-   - Although Full SentinelAI achieved 0.8211 on the test set, it collapsed on the validation set (`KA15` outer-ring recall = 0.0000, Val Macro-F1 = 0.5558). Under standard blind machine learning protocol, Full SentinelAI was appropriately disqualified during validation selection.
-   - Frequency-Only v1's selection is scientifically sound, fully repeatable, and demonstrates a **+0.1074 Test Macro-F1 gain** over the 1-D CNN baseline.
+- **Absolute improvement**: {baseline_delta:+.4f} Macro-F1 ({baseline_delta * 100:+.2f} percentage points)
+- **Percentage improvement over baseline**: {baseline_pct_improvement:+.2f}%
 """
 
 with open(PROJECT_ROOT / "results" / "final_test_results.md", "w") as f:

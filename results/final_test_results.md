@@ -13,6 +13,11 @@
 - **Selection Criterion**: **Highest official validation Macro-F1 (0.6152)**
 - **Official Validation Macro-F1**: **0.6152**
 - **Checkpoint**: `results/checkpoints/frequency_only.pt`
+- **Checkpoint model name / class**: `Frequency Only (STFT 2-D Conv)` / `FrequencyOnly`
+- **Trainable parameters**: 11,363
+- **Seed**: 42
+- **Manifest SHA-256**: `71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf`
+- **Class mapping**: Healthy = 0, Outer Ring = 1, Inner Ring = 2
 - **Official Test Bearings**: `K006` (Healthy), `KA22` (Real Outer Ring), `KI14` (Real Inner Ring)
 - **Test Set Size**: 955 windows (Healthy: 320, Outer Ring: 315, Inner Ring: 320)
 
@@ -64,27 +69,12 @@ True Inner Ring           84                   68                     168
 
 ---
 
-## 4. Benchmark Comparison Across Architectures
+## 4. Mandatory Baseline Comparison
 
-The following table presents the final comparison across all benchmarked architectures. For non-selected models, values reflect the frozen Phase 6 pre-recorded evaluations:
+| Model | Test Macro-F1 |
+|---|---:|
+| Baseline 1D CNN | 0.5567 |
+| Frequency-Only v1 (frozen selected model) | 0.6641 |
 
-| Model | Validation Macro-F1 | Test Accuracy | Test Macro-F1 |
-|---|---:|---:|---:|
-| **Baseline 1D CNN** | 0.5558 | 0.6702 | 0.5567 |
-| **Temporal-Only** | 0.5558 | 0.6702 | 0.5567 |
-| **Frequency-Only v1** *(Selected)* | **0.6152** | **0.6743** | **0.6641** |
-| **Full SentinelAI** | 0.5558 | 0.8335 | 0.8211 |
-
-### Post-Selection Baseline Improvement:
-Delta Test Macro-F1 = Macro-F1(Freq-Only v1) - Macro-F1(Baseline) = 0.6641 - 0.5567 = +0.1074 (+10.74%)
-
----
-
-## 5. Scientific Findings & Discussion
-
-1. **Superior Generalization over 1-D Baselines**:
-   - Both the Baseline 1D CNN and Temporal-Only models collapsed to zero outer-ring recall on the test set (predicting 0 outer-ring windows on `KA22`), exactly replicating their failure on validation bearing `KA15`.
-   - Frequency-Only v1 successfully identifies outer-ring damage on the locked test set (Recall = 49.52%, 156/315 windows), demonstrating genuine feature extraction capability across physically held-out bearing units.
-2. **Post-Selection Context with Full SentinelAI**:
-   - Although Full SentinelAI achieved 0.8211 on the test set, it collapsed on the validation set (`KA15` outer-ring recall = 0.0000, Val Macro-F1 = 0.5558). Under standard blind machine learning protocol, Full SentinelAI was appropriately disqualified during validation selection.
-   - Frequency-Only v1's selection is scientifically sound, fully repeatable, and demonstrates a **+0.1074 Test Macro-F1 gain** over the 1-D CNN baseline.
+- **Absolute improvement**: +0.1073 Macro-F1 (+10.73 percentage points)
+- **Percentage improvement over baseline**: +19.28%

@@ -3,12 +3,24 @@
   "selected_model": "Frequency-Only v1",
   "selection_criterion": "Highest official validation Macro-F1 (0.6152)",
   "official_validation_macro_f1": 0.6152,
-  "checkpoint_path": "/Users/nbn/Desktop/hackathons /dlsat/results/checkpoints/frequency_only.pt",
+  "checkpoint_path": "results/checkpoints/frequency_only.pt",
+  "checkpoint_resolved_path": "/Users/nbn/Desktop/hackathons /dlsat/results/checkpoints/frequency_only.pt",
+  "model_name": "Frequency Only (STFT 2-D Conv)",
+  "model_class": "FrequencyOnly",
+  "parameter_count": 11363,
+  "seed": 42,
+  "checkpoint_retrained": false,
+  "manifest_sha256": "71916a2f142813455013024017bc05eb97406ff44d85c53da32efbb6f6d2ddaf",
   "official_test_bearings": [
     "K006",
     "KA22",
     "KI14"
   ],
+  "class_mapping": {
+    "healthy": 0,
+    "outer_ring": 1,
+    "inner_ring": 2
+  },
   "total_test_samples": 955,
   "samples_per_class": {
     "healthy": 320,
@@ -76,30 +88,10 @@
     "num_samples": 955
   },
   "baseline_comparison": {
+    "baseline_name": "Baseline 1D CNN",
     "baseline_test_macro_f1": 0.5567190226876091,
     "frequency_only_test_macro_f1": 0.664058707958443,
-    "delta_macro_f1": 0.10733968527083393
-  },
-  "comparison_table": {
-    "Baseline 1D CNN": {
-      "validation_macro_f1": 0.5557887373207415,
-      "test_accuracy": 0.6701570680628273,
-      "test_macro_f1": 0.5567190226876091
-    },
-    "Temporal-Only": {
-      "validation_macro_f1": 0.5557887373207415,
-      "test_accuracy": 0.6701570680628273,
-      "test_macro_f1": 0.5567190226876091
-    },
-    "Frequency-Only v1": {
-      "validation_macro_f1": 0.6152,
-      "test_accuracy": 0.6743455497382199,
-      "test_macro_f1": 0.664058707958443
-    },
-    "Full SentinelAI": {
-      "validation_macro_f1": 0.5557887373207415,
-      "test_accuracy": 0.8335078534031414,
-      "test_macro_f1": 0.821140544576687
-    }
+    "absolute_improvement_macro_f1": 0.10733968527083393,
+    "percentage_improvement_over_baseline": 19.28076478375794
   }
 }

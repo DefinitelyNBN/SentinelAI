@@ -96,7 +96,6 @@ evaluation:
   # Best checkpoint resolution order (used by inference.py)
   # Each entry is tried in order; first existing file wins.
   checkpoint_priority:
-    - results/checkpoints/msrf_v2_best.pt
     - results/checkpoints/frequency_only.pt
     - results/checkpoints/sentinelai.pt
 
