@@ -35,7 +35,7 @@ st.set_page_config(
     page_title="SentinelAI — Industrial Signal Intelligence",
     page_icon="⚡",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 st.markdown(
@@ -231,6 +231,70 @@ code, pre, .mono {
 }
 
 /* ── Custom Uploader Dropzone Styling ── */
+[data-testid="stFileUploader"] {
+    background: transparent !important;
+}
+[data-testid="stFileUploader"] section {
+    background-color: #080d16 !important;
+    border: 1px dashed #1c2a3e !important;
+    border-radius: 6px !important;
+    padding: 1.25rem !important;
+    transition: all 0.2s ease;
+}
+[data-testid="stFileUploader"] section:hover {
+    border-color: #38bdf8 !important;
+    background-color: #0b1320 !important;
+}
+[data-testid="stFileUploader"] section button {
+    background-color: #121d2d !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #1e314b !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 0.35rem 0.85rem !important;
+    transition: all 0.2s ease;
+}
+[data-testid="stFileUploader"] section button:hover {
+    background-color: #1e3352 !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+[data-testid="stFileUploader"] section button span {
+    color: #e2e8f0 !important;
+}
+[data-testid="stFileUploader"] span, 
+[data-testid="stFileUploader"] div,
+[data-testid="stFileUploader"] p {
+    color: #94a3b8 !important;
+}
+[data-testid="stFileUploader"] small {
+    color: #64748b !important;
+}
+[data-testid="stFileUploaderFile"] {
+    background-color: #0a111c !important;
+    border: 1px solid #1a283e !important;
+    border-radius: 4px !important;
+}
+[data-testid="stFileUploaderFile"] span {
+    color: #cbd5e1 !important;
+}
+
+/* ── Confusion Matrix dark override ── */
+.cm-container img {
+    border-radius: 6px;
+    filter: invert(0);
+}
+.cm-container [data-testid="stImage"],
+.cm-container [data-testid="stImageContainer"] {
+    background: #080d16 !important;
+    border-radius: 6px;
+}
+.cm-container figure, .cm-container figure > div {
+    background: #080d16 !important;
+}
+
 .upload-spec-row {
     display: flex;
     gap: 1.5rem;
@@ -705,37 +769,29 @@ def render_attribution_plot(saliency: np.ndarray, raw_signal: np.ndarray, fs: in
 # ─────────────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(
-        """
-    <div style="padding: 0.5rem 0;">
-        <div style="font-size: 1.1rem; font-weight: 800; color: #f8fafc; letter-spacing: -0.02em;">SENTINEL<span style="color:#38bdf8;">AI</span></div>
-        <div style="font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.25rem;">Signal Intelligence</div>
-        
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 6px; padding: 0.75rem; margin-bottom: 1rem;">
-            <div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Inference Engine</div>
-            <div style="font-size: 0.82rem; color: #10b981; font-weight: 600; margin-top: 2px;">● Ready</div>
-            
-            <div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.6rem;">Model Architecture</div>
-            <div style="font-size: 0.82rem; color: #e2e8f0; font-weight: 500;">Frequency Only (STFT 2-D Conv)</div>
-            
-            <div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.6rem;">Parameters</div>
-            <div style="font-size: 0.82rem; color: #e2e8f0; font-family: 'JetBrains Mono', monospace;">11,363</div>
-
-            <div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.6rem;">Checkpoint</div>
-            <div style="font-size: 0.78rem; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">frequency_only.pt (Frozen)</div>
-        </div>
-        
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 6px; padding: 0.75rem; margin-bottom: 1.25rem;">
-            <div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Processing Pipeline</div>
-            <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.35rem; line-height: 1.5;">
-                Signal ➔ STFT ➔ 2-D CNN ➔ Classification
-            </div>
-        </div>
-
-        <div style="font-size: 0.75rem; color: #64748b; line-height: 1.45;">
-            <strong style="color: #94a3b8;">About:</strong> SentinelAI is an experimental deep learning system for bearing-condition classification from vibration signals.
-        </div>
-    </div>
-    """,
+        """<div style="padding: 0.5rem 0;">
+<div style="font-size: 1.1rem; font-weight: 800; color: #f8fafc; letter-spacing: -0.02em;">SENTINEL<span style="color:#38bdf8;">AI</span></div>
+<div style="font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.25rem;">Signal Intelligence</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 6px; padding: 0.75rem; margin-bottom: 1rem;">
+<div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Inference Engine</div>
+<div style="font-size: 0.82rem; color: #10b981; font-weight: 600; margin-top: 2px;">● Ready</div>
+<div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.6rem;">Model Architecture</div>
+<div style="font-size: 0.82rem; color: #e2e8f0; font-weight: 500;">Frequency Only (STFT 2-D Conv)</div>
+<div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.6rem;">Parameters</div>
+<div style="font-size: 0.82rem; color: #e2e8f0; font-family: 'JetBrains Mono', monospace;">11,363</div>
+<div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-top: 0.6rem;">Checkpoint</div>
+<div style="font-size: 0.78rem; color: #38bdf8; font-family: 'JetBrains Mono', monospace;">frequency_only.pt (Frozen)</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 6px; padding: 0.75rem; margin-bottom: 1.25rem;">
+<div style="font-size: 0.68rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Processing Pipeline</div>
+<div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.35rem; line-height: 1.5;">
+Signal ➔ STFT ➔ 2-D CNN ➔ Classification
+</div>
+</div>
+<div style="font-size: 0.75rem; color: #64748b; line-height: 1.45;">
+<strong style="color: #94a3b8;">About:</strong> SentinelAI is an experimental deep learning system for bearing-condition classification from vibration signals.
+</div>
+</div>""",
         unsafe_allow_html=True,
     )
 
@@ -811,16 +867,14 @@ st.markdown(
 st.markdown(
     """
 <div class="instrument-card">
-    <div class="section-tag">Input Acquisition</div>
-    <div class="section-title">Signal Input</div>
-    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: -0.4rem; margin-bottom: 0.85rem;">
-        Upload a 1-D vibration waveform (.npy)
-    </div>
-    <div class="upload-spec-row">
-        <div class="upload-spec-item"><strong>Window:</strong> 64,000 samples (1.00 s)</div>
-        <div class="upload-spec-item"><strong>Sampling Rate:</strong> 64 kHz nominal</div>
-        <div class="upload-spec-item"><strong>Resampling:</strong> None (exact rate required)</div>
-    </div>
+<div class="section-tag">Input Acquisition</div>
+<div class="section-title">Signal Input</div>
+<div style="font-size: 0.85rem; color: #94a3b8; margin-top: -0.4rem; margin-bottom: 0.85rem;">Upload a 1-D vibration waveform (.npy)</div>
+<div class="upload-spec-row">
+<div class="upload-spec-item"><strong>Window:</strong> 64,000 samples (1.00 s)</div>
+<div class="upload-spec-item"><strong>Sampling Rate:</strong> 64 kHz nominal</div>
+<div class="upload-spec-item"><strong>Resampling:</strong> None (exact rate required)</div>
+</div>
 </div>
 """,
     unsafe_allow_html=True,
@@ -838,43 +892,21 @@ uploaded_file = st.file_uploader(
 # ─────────────────────────────────────────────────────────────────────────────
 if uploaded_file is None:
     st.markdown(
-        """
-    <div style="background: #080d16; border: 1px dashed #1c2a3e; border-radius: 8px; padding: 2rem; text-align: center; margin-bottom: 2rem;">
-        <div style="font-size: 0.95rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.4rem;">
-            Upload a vibration signal to begin analysis
-        </div>
-        <div style="font-size: 0.8rem; color: #64748b; max-width: 580px; margin: 0 auto 1.25rem auto;">
-            The model performs frozen single-window classification on a calibrated 64,000-sample (1.0 second) 1-D vibration segment.
-        </div>
-        
-        <div class="pipeline-diagram">
-            <div class="pipeline-node">
-                <div class="pipeline-node-title">Raw Vibration</div>
-                <div class="pipeline-node-sub">1-D • 64 kHz • 1.0s</div>
-            </div>
-            <div class="pipeline-arrow">➔</div>
-            <div class="pipeline-node">
-                <div class="pipeline-node-title">Normalization</div>
-                <div class="pipeline-node-sub">Training Global Z-Score</div>
-            </div>
-            <div class="pipeline-arrow">➔</div>
-            <div class="pipeline-node">
-                <div class="pipeline-node-title">STFT</div>
-                <div class="pipeline-node-sub">n_fft 2048 • hop 512</div>
-            </div>
-            <div class="pipeline-arrow">➔</div>
-            <div class="pipeline-node">
-                <div class="pipeline-node-title">Deep Features</div>
-                <div class="pipeline-node-sub">2-D Conv Spectrogram</div>
-            </div>
-            <div class="pipeline-arrow">➔</div>
-            <div class="pipeline-node">
-                <div class="pipeline-node-title">Condition</div>
-                <div class="pipeline-node-sub">Healthy / Outer / Inner</div>
-            </div>
-        </div>
-    </div>
-    """,
+        """<div style="text-align: center; padding: 1.5rem 0 2rem 0; margin-bottom: 1.5rem;">
+<div style="font-size: 0.95rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.35rem;">Upload a vibration signal to begin analysis</div>
+<div style="font-size: 0.8rem; color: #64748b; max-width: 580px; margin: 0 auto 1.5rem auto;">The model performs frozen single-window classification on a calibrated 64,000-sample (1.0 second) 1-D vibration segment.</div>
+<div class="pipeline-diagram">
+<div class="pipeline-node"><div class="pipeline-node-title">Raw Vibration</div><div class="pipeline-node-sub">1-D • 64 kHz • 1.0s</div></div>
+<div class="pipeline-arrow">➔</div>
+<div class="pipeline-node"><div class="pipeline-node-title">Normalization</div><div class="pipeline-node-sub">Training Global Z-Score</div></div>
+<div class="pipeline-arrow">➔</div>
+<div class="pipeline-node"><div class="pipeline-node-title">STFT</div><div class="pipeline-node-sub">n_fft 2048 • hop 512</div></div>
+<div class="pipeline-arrow">➔</div>
+<div class="pipeline-node"><div class="pipeline-node-title">Deep Features</div><div class="pipeline-node-sub">2-D Conv Spectrogram</div></div>
+<div class="pipeline-arrow">➔</div>
+<div class="pipeline-node"><div class="pipeline-node-title">Condition</div><div class="pipeline-node-sub">Healthy / Outer / Inner</div></div>
+</div>
+</div>""",
         unsafe_allow_html=True,
     )
 
@@ -958,7 +990,7 @@ else:
             unsafe_allow_html=True,
         )
         fig_raw = render_waveform_plot(analyzed_samples, sampling_rate)
-        st.pyplot(fig_raw, use_container_width=True)
+        st.pyplot(fig_raw, width="stretch")
         plt.close(fig_raw)
 
     with col_stft:
@@ -976,7 +1008,7 @@ else:
             unsafe_allow_html=True,
         )
         fig_stft = render_stft_plot(model, x_tensor, sampling_rate)
-        st.pyplot(fig_stft, use_container_width=True)
+        st.pyplot(fig_stft, width="stretch")
         plt.close(fig_stft)
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -1003,76 +1035,54 @@ else:
         cond_border = "rgba(244, 63, 94, 0.35)"
         class_text_color = "#fb7185" if pred_class_id == 1 else "#fbbf24"
 
-    st.markdown(
-        f"""
-    <div class="diagnosis-container">
-        <div class="section-tag">Inference Result</div>
-        <div class="section-title">AI DIAGNOSIS</div>
-        
-        <div class="diagnosis-hero-card" style="border-left: 5px solid {cond_color};">
-            <div>
-                <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b;">
-                    Classified Bearing State
-                </div>
-                <div class="diag-pred-class" style="color: {class_text_color};">
-                    {pred_class_display}
-                </div>
-                <div class="diag-condition-pill" style="color: {cond_color}; background: {cond_bg}; border: 1px solid {cond_border};">
-                    CONDITION: {cond_text}
-                </div>
-            </div>
-            
-            <div class="diag-conf-box">
-                <div class="diag-conf-label">Confidence</div>
-                <div class="diag-conf-num">{confidence_pct:.1f}%</div>
-                <div style="font-size: 0.68rem; color: #64748b; margin-top: 2px;">max softmax output</div>
-            </div>
-        </div>
-        
-        <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 0.6rem;">
-            Class Probabilities
-        </div>
-    """,
-        unsafe_allow_html=True,
-    )
-
-    # Class probability bars
     labels_info = [
         ("HEALTHY", probabilities[0], "#10b981", pred_class_id == 0),
         ("OUTER RING DAMAGE", probabilities[1], "#f43f5e", pred_class_id == 1),
         ("INNER RING DAMAGE", probabilities[2], "#f59e0b", pred_class_id == 2),
     ]
 
+    prob_cards_html = []
     for label_name, p_val, p_color, is_pred in labels_info:
         pct_str = f"{p_val * 100.0:.1f}%"
         border_highlight = f"border: 1px solid {p_color}55;" if is_pred else "border: 1px solid #142032;"
         bg_highlight = f"background: {p_color}0a;" if is_pred else "background: #070c14;"
-        indicator = " ★ PREDICTED" if is_pred else ""
+        indicator = f'<span style="font-size: 0.7rem; color: {p_color}; font-weight: 700;">★ PREDICTED</span>' if is_pred else ""
+        bar_w = max(p_val * 100.0, 1.0)
+        prob_cards_html.append(f"""<div class="prob-card" style="{bg_highlight} {border_highlight}">
+<div class="prob-header">
+<div><strong>{label_name}</strong> {indicator}</div>
+<div class="prob-pct" style="color: {p_color};">{pct_str}</div>
+</div>
+<div class="prob-bar-track">
+<div class="prob-bar-fill" style="width: {bar_w:.1f}%; background-color: {p_color};"></div>
+</div>
+</div>""")
 
-        st.markdown(
-            f"""
-        <div class="prob-card" style="{bg_highlight} {border_highlight}">
-            <div class="prob-header">
-                <div><strong>{label_name}</strong> <span style="font-size: 0.7rem; color: {p_color}; font-weight: 700;">{indicator}</span></div>
-                <div class="prob-pct" style="color: {p_color};">{pct_str}</div>
-            </div>
-            <div class="prob-bar-track">
-                <div class="prob-bar-fill" style="width: {max(p_val * 100.0, 1.0):.1f}%; background-color: {p_color};"></div>
-            </div>
-        </div>
-        """,
-            unsafe_allow_html=True,
-        )
+    all_prob_cards = "".join(prob_cards_html)
 
-    st.markdown(
-        """
-        <div style="font-size: 0.72rem; color: #64748b; margin-top: 0.5rem;">
-            Classification based on the frozen Frequency Only STFT model. Softmax outputs represent model distribution, not calibrated physical failure probabilities.
-        </div>
-    </div>
-    """,
-        unsafe_allow_html=True,
-    )
+    diagnosis_html = f"""<div class="diagnosis-container">
+<div class="section-tag">Inference Result</div>
+<div class="section-title">AI DIAGNOSIS</div>
+<div class="diagnosis-hero-card" style="border-left: 5px solid {cond_color};">
+<div>
+<div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b;">Classified Bearing State</div>
+<div class="diag-pred-class" style="color: {class_text_color};">{pred_class_display}</div>
+<div class="diag-condition-pill" style="color: {cond_color}; background: {cond_bg}; border: 1px solid {cond_border};">CONDITION: {cond_text}</div>
+</div>
+<div class="diag-conf-box">
+<div class="diag-conf-label">Confidence</div>
+<div class="diag-conf-num">{confidence_pct:.1f}%</div>
+<div style="font-size: 0.68rem; color: #64748b; margin-top: 2px;">max softmax output</div>
+</div>
+</div>
+<div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 0.6rem;">Class Probabilities</div>
+{all_prob_cards}
+<div style="font-size: 0.72rem; color: #64748b; margin-top: 0.5rem;">
+Classification based on the frozen Frequency Only STFT model. Softmax outputs represent model distribution, not calibrated physical failure probabilities.
+</div>
+</div>"""
+
+    st.markdown(diagnosis_html, unsafe_allow_html=True)
 
     # ─────────────────────────────────────────────────────────────────────────
     # 9. MODEL INTERPRETATION (INPUT-GRADIENT ATTRIBUTION)
@@ -1105,7 +1115,7 @@ else:
         saliency_array = explanation["temporal_saliency"]
         if saliency_array is not None and np.any(saliency_array):
             fig_attr = render_attribution_plot(saliency_array, analyzed_samples, sampling_rate)
-            st.pyplot(fig_attr, use_container_width=True)
+            st.pyplot(fig_attr, width="stretch")
             plt.close(fig_attr)
             st.caption(
                 "Input-gradient saliency across the 64,000 sample analysis window. Peaks indicate temporal locations with highest sensitivity to the classification loss."
@@ -1121,46 +1131,44 @@ else:
 # ─────────────────────────────────────────────────────────────────────────────
 with st.expander("Technical Details", expanded=False):
     st.markdown(
-        f"""
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; font-size: 0.82rem; padding: 0.5rem 0;">
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Model Architecture</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">Frequency Only (STFT 2-D Conv)</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Parameters</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">11,363</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Input Specification</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">1-D vibration channel</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Sampling Rate</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">64 kHz nominal</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Analysis Window</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">64,000 samples / 1.000 s</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">STFT Configuration</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">n_fft = 2048 • hop_length = 512</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Normalization</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">Training-derived global z-score</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Norm Statistics</div>
-            <div style="font-weight: 600; color: #f1f5f9; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">Mean: 0.0080971408 • Std: 0.3537545935</div>
-        </div>
-        <div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem; grid-column: span 2;">
-            <div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Checkpoint Artifact</div>
-            <div style="font-weight: 600; color: #38bdf8; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">results/checkpoints/frequency_only.pt</div>
-        </div>
-    </div>
-    """,
+        """<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; font-size: 0.82rem; padding: 0.5rem 0;">
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Model Architecture</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">Frequency Only (STFT 2-D Conv)</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Parameters</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">11,363</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Input Specification</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">1-D vibration channel</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Sampling Rate</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">64 kHz nominal</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Analysis Window</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">64,000 samples / 1.000 s</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">STFT Configuration</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">n_fft = 2048 • hop_length = 512</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Normalization</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px;">Training-derived global z-score</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Norm Statistics</div>
+<div style="font-weight: 600; color: #f1f5f9; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">Mean: 0.0080971408 • Std: 0.3537545935</div>
+</div>
+<div style="background: #080d16; border: 1px solid #142032; border-radius: 5px; padding: 0.65rem 0.85rem; grid-column: span 2;">
+<div style="font-size: 0.68rem; color: #64748b; text-transform: uppercase; font-weight: 700;">Checkpoint Artifact</div>
+<div style="font-weight: 600; color: #38bdf8; margin-top: 2px; font-family: 'JetBrains Mono', monospace;">results/checkpoints/frequency_only.pt</div>
+</div>
+</div>""",
         unsafe_allow_html=True,
     )
 
@@ -1168,75 +1176,61 @@ with st.expander("Technical Details", expanded=False):
 # ─────────────────────────────────────────────────────────────────────────────
 # 11. BENCHMARK SECTION (MODE 2: OFFICIAL MODEL BENCHMARK)
 # ─────────────────────────────────────────────────────────────────────────────
-st.markdown(
-    """
-<div class="benchmark-container">
-    <div class="benchmark-badge">OFFICIAL BENCHMARK • LOCKED EVALUATION</div>
-    <div class="section-title" style="margin-bottom: 0.2rem;">BENCHMARK</div>
-    <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem;">
-        Locked evaluation on the official held-out test bearings (K006, KA22, KI14)
-    </div>
-""",
-    unsafe_allow_html=True,
-)
-
-# Benchmark metrics display
 test_acc = benchmark_data["test_metrics"]["accuracy"] * 100.0
 test_f1 = benchmark_data["test_metrics"]["macro_f1"] * 100.0
 base_f1 = benchmark_data["baseline_comparison"]["baseline_test_macro_f1"] * 100.0
 f1_diff = test_f1 - base_f1
 rel_diff = benchmark_data["baseline_comparison"]["percentage_improvement_over_baseline"]
 
-st.markdown(
-    f"""
-    <div class="metric-grid">
-        <div class="metric-cell">
-            <div class="metric-cell-label">Test Macro-F1</div>
-            <div class="metric-cell-val" style="color: #38bdf8;">{test_f1:.2f}%</div>
-            <div class="metric-cell-delta">+{f1_diff:.2f} pp vs baseline</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-cell-label">Mandatory Baseline</div>
-            <div class="metric-cell-val" style="color: #94a3b8;">{base_f1:.2f}%</div>
-            <div style="font-size: 0.72rem; color: #64748b;">Baseline 1D CNN</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-cell-label">Relative Gain</div>
-            <div class="metric-cell-val" style="color: #10b981;">+{rel_diff:.2f}%</div>
-            <div style="font-size: 0.72rem; color: #64748b;">over baseline</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-cell-label">Test Accuracy</div>
-            <div class="metric-cell-val" style="color: #f8fafc;">{test_acc:.2f}%</div>
-            <div style="font-size: 0.72rem; color: #64748b;">955 test windows</div>
-        </div>
-    </div>
-    
-    <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin: 1.25rem 0 0.75rem 0;">
-        Macro-F1 Performance Comparison
-    </div>
-    
-    <div class="comp-row">
-        <div class="comp-name">Mandatory Baseline</div>
-        <div class="comp-track">
-            <div class="comp-fill" style="width: {base_f1:.1f}%; background: #334155; color: #cbd5e1;">{base_f1:.2f}%</div>
-        </div>
-    </div>
-    
-    <div class="comp-row">
-        <div class="comp-name" style="color: #38bdf8;">SentinelAI (Winner)</div>
-        <div class="comp-track">
-            <div class="comp-fill" style="width: {test_f1:.1f}%; background: #0284c7; color: #ffffff;">{test_f1:.2f}%</div>
-        </div>
-    </div>
-    
-    <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.75rem;">
-        Evaluation performed on 955 bearing-disjoint windows across unseen test bearings: K006 (Healthy: 320), KA22 (Outer Ring: 315), KI14 (Inner Ring: 320).
-    </div>
+benchmark_html = f"""<div class="benchmark-container">
+<div class="benchmark-badge">OFFICIAL BENCHMARK • LOCKED EVALUATION</div>
+<div class="section-title" style="margin-bottom: 0.2rem;">BENCHMARK</div>
+<div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem;">
+Locked evaluation on the official held-out test bearings (K006, KA22, KI14)
 </div>
-""",
-    unsafe_allow_html=True,
-)
+<div class="metric-grid">
+<div class="metric-cell">
+<div class="metric-cell-label">Test Macro-F1</div>
+<div class="metric-cell-val" style="color: #38bdf8;">{test_f1:.2f}%</div>
+<div class="metric-cell-delta">+{f1_diff:.2f} pp vs baseline</div>
+</div>
+<div class="metric-cell">
+<div class="metric-cell-label">Mandatory Baseline</div>
+<div class="metric-cell-val" style="color: #94a3b8;">{base_f1:.2f}%</div>
+<div style="font-size: 0.72rem; color: #64748b;">Baseline 1D CNN</div>
+</div>
+<div class="metric-cell">
+<div class="metric-cell-label">Relative Gain</div>
+<div class="metric-cell-val" style="color: #10b981;">+{rel_diff:.2f}%</div>
+<div style="font-size: 0.72rem; color: #64748b;">over baseline</div>
+</div>
+<div class="metric-cell">
+<div class="metric-cell-label">Test Accuracy</div>
+<div class="metric-cell-val" style="color: #f8fafc;">{test_acc:.2f}%</div>
+<div style="font-size: 0.72rem; color: #64748b;">955 test windows</div>
+</div>
+</div>
+<div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin: 1.25rem 0 0.75rem 0;">
+Macro-F1 Performance Comparison
+</div>
+<div class="comp-row">
+<div class="comp-name">Mandatory Baseline</div>
+<div class="comp-track">
+<div class="comp-fill" style="width: {base_f1:.1f}%; background: #334155; color: #cbd5e1;">{base_f1:.2f}%</div>
+</div>
+</div>
+<div class="comp-row">
+<div class="comp-name" style="color: #38bdf8;">SentinelAI (Winner)</div>
+<div class="comp-track">
+<div class="comp-fill" style="width: {test_f1:.1f}%; background: #0284c7; color: #ffffff;">{test_f1:.2f}%</div>
+</div>
+</div>
+<div style="font-size: 0.75rem; color: #64748b; margin-top: 0.75rem;">
+Evaluation performed on 955 bearing-disjoint windows across unseen test bearings: K006 (Healthy: 320), KA22 (Outer Ring: 315), KI14 (Inner Ring: 320).
+</div>
+</div>"""
+
+st.markdown(benchmark_html, unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1259,11 +1253,16 @@ cm_path = ROOT / "results" / "figures" / "final_confusion_matrix.png"
 if cm_path.exists():
     cm_col, _ = st.columns([1.6, 1])
     with cm_col:
+        st.markdown(
+            """<div class="cm-container" style="background: #080d16; border: 1px solid #1a273b; border-radius: 8px; padding: 0.5rem; margin-bottom: 0.4rem;">""",
+            unsafe_allow_html=True,
+        )
         st.image(
             str(cm_path),
             caption="Official locked test confusion matrix (Rows: Ground Truth, Columns: Predicted Class)",
-            use_container_width=True,
+            width="stretch",
         )
+        st.markdown("""</div>""", unsafe_allow_html=True)
 else:
     st.info("Official test confusion matrix artifact not found at results/figures/final_confusion_matrix.png.")
 
@@ -1272,15 +1271,9 @@ else:
 # 13. PROFESSIONAL APPLICATION FOOTER
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown(
-    """
-<div class="app-footer">
-    <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; letter-spacing: -0.01em;">
-        SentinelAI &nbsp;|&nbsp; Industrial Signal Intelligence
-    </div>
-    <div style="margin-top: 0.35rem; color: #475569;">
-        Experimental research prototype &nbsp;•&nbsp; Paderborn Bearing Benchmark &nbsp;•&nbsp; Frozen Evaluation Pipeline
-    </div>
-</div>
-""",
+    """<div class="app-footer">
+<div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; letter-spacing: -0.01em;">SentinelAI &nbsp;|&nbsp; Industrial Signal Intelligence</div>
+<div style="margin-top: 0.35rem; color: #475569;">Experimental research prototype &nbsp;•&nbsp; Paderborn Bearing Benchmark &nbsp;•&nbsp; Frozen Evaluation Pipeline</div>
+</div>""",
     unsafe_allow_html=True,
 )
